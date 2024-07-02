@@ -1,0 +1,27 @@
+selector:
+  enable_static: False
+  enable_dunamic: False
+  N_clusters: 4
+  K_keywords: 10
+
+aggregator:
+  extractor_model: null
+  generalizer_model: null
+  K_topics: 4
+
+reducer:
+  model: null
+
+retriever:
+  model: null
+  N_docs: 100
+
+summarizer:
+  model: null
+
+generator:
+  model: null
+
+controller:
+  
+  
