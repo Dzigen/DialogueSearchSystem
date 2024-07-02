@@ -5,23 +5,25 @@ selector:
   K_keywords: 10
 
 aggregator:
-  extractor_model: null
-  generalizer_model: null
+  extractor_model: ""
+  generalizer_model: ""
   K_topics: 4
 
 reducer:
-  model: null
+  model: ""
 
 retriever:
-  model: null
+  model: ""
   N_docs: 100
 
 summarizer:
-  model: null
+  model: ""
 
 generator:
-  model: null
+  model: ""
 
 controller:
+  enable_static: False
+  enable_dynamic: False
   
   

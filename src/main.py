@@ -52,4 +52,3 @@ class DialogueSearch:
         self.summarizer.create_answer(dialogue_state)
         self.user_handler.answer(dialogue_state)
 
-

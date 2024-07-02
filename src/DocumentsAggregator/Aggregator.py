@@ -1,5 +1,5 @@
-from src.DocumentsAggregator.utils import AggregatorConfig, base_config
+from src.DocumentsAggregator.utils import AggregatorConfig
 
 class AggregatorModule:
-    def __init__(self, config: AggregatorConfig = base_config) -> None:
+    def __init__(self, config: AggregatorConfig) -> None:
         self.config = config

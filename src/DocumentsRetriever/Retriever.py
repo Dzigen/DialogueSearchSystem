@@ -1,5 +1,5 @@
-from src.DocumentsRetriever.utils import RetrieverConfig, base_config
+from src.DocumentsRetriever.utils import RetrieverConfig
 
 class RetrieverModule:
-    def __init__(self, config: RetrieverConfig = base_config) -> None:
+    def __init__(self, config: RetrieverConfig) -> None:
         self.config = config

@@ -1,7 +1,14 @@
 from dataclasses import dataclass
+from ruamel.yaml import YAML
 
 @dataclass
 class ControllerConfig:
-    pass
+    enable_static: bool
+    enable_dynamic: bool
 
-base_config = ControllerConfig()
+
+    @staticmethod
+    def load(cls):
+        yaml = YAML(typ='safe')
+        data = yaml.load('../config.yaml')
+        return cls(**data['controller'])
