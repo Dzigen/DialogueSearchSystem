@@ -8,6 +8,7 @@ from src.QuestionGenerator.utils import GeneratorConfig
 from src.StopConditionController.utils import ControllerConfig
 
 from ruamel.yaml import YAML
+from typing import List, Dict
 
 configs = {
     'selector': SelectorConfig,
@@ -20,8 +21,19 @@ configs = {
 }
 
 @dataclass
+class DialogueTurn:
+    topic: str
+    question: str
+    choices: List[str]
+    answer: int
+    filtered_relevant_docs: List[int]
+
+@dataclass
 class DialogueState:
-    pass
+    query: str
+    base_relevant_docs: List[str]
+    history: List[DialogueTurn]
+    answer: str
 
 @dataclass
 class DialogueSearchConfig:
@@ -48,11 +60,19 @@ class UserHandler:
         pass
 
     def ask(self, state: DialogueState) -> None:
-        query = input("Введите ваш запрос: ")
+        query = input("[BOT] Введите ваш запрос\n[YOU] ")
+        state['query'] = query
 
     def clarify(self, state: DialogueState) -> None:
-        pass
+        cur_turn = state['history'][-1]
+        print(f"[BOT] Уточните следующую информацию:\n{cur_turn['question']}")
+        for i in range(0, cur_turn['choices']):
+            print(f"{i+1}. {cur_turn['choices'][i]}")
+        
+        answer = input("[YOU] ")
+        state['history'][-1]['answer'] = int(answer)
 
     def answer(self, state: DialogueState) -> None:
-        print("Ваш ответ: ", state['answer'])
+        print("[BOT] По вашему запросу был найден следующий ответ:\n", 
+              state['answer'])
         
