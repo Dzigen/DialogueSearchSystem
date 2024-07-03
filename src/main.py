@@ -12,7 +12,7 @@ from src.DocumentsRetriever.Retriever import RetrieverModule
 from src.DocumentsSummarizer.Summarizer import SummarizerModule
 from src.QuestionGenerator.Generator import GeneratorModule
 from src.StopConditionController.Controller import ControllerModule
-from src.utils import DialogueState, UserHandler, DialogueSearchConfig
+from src.utils import DialogueState, UserHandler, DialogueSearchConfig, DialogueTurn
 from src.logger import Logger
 
 class DialogueSearch:
@@ -58,3 +58,4 @@ class DialogueSearch:
         # Этап 7
         self.summarizer.create_answer(dialogue_state)
         self.user_handler.answer(dialogue_state)
+        self.log.info(dialogue_state)

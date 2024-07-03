@@ -11,4 +11,7 @@ class GeneratorModule:
         
     @Logger.cls_se_log("Генерация уточняющего вопроса")
     def create_question(self, state: DialogueState):
-        pass
+        
+        # TODO : !!!STUB!!!
+        question = 'test question'
+        state.history[-1].question = question

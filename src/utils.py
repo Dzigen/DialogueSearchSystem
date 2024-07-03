@@ -24,6 +24,7 @@ configs = {
 class DialogueTurn:
     topic: str = None
     question: str = None
+    raw_info: List[str] = field(default_factory=lambda: [])
     choices: List[str] = field(default_factory=lambda: [])
     answer: int = None
     filtered_relevant_docs: List[int] = field(default_factory=lambda: [])
@@ -61,7 +62,8 @@ class UserHandler:
         pass
 
     def ask(self, state: DialogueState) -> None:
-        query = input("[BOT] Введите ваш запрос\n[YOU] ")
+        print("[BOT] Введите ваш запрос")
+        query = input("[YOU] ")
         state.query = query
 
     def clarify(self, state: DialogueState) -> None:
@@ -74,6 +76,5 @@ class UserHandler:
         state.history[-1].answer = int(answer)
 
     def answer(self, state: DialogueState) -> None:
-        print("[BOT] По вашему запросу был найден следующий ответ:\n", 
-              state.answer)
+        print("[BOT] По вашему запросу был найден следующий ответ:\n", state.answer)
         

@@ -11,6 +11,6 @@ class ControllerModule:
 
     Logger.cls_se_log('''Проверка на наличие терминального состояния 
                       и прекращение генерации уточняющих вопросов''')
-    def is_terminal_state(state: DialogueState) -> bool:
-        pass
+    def is_terminal_state(self, state: DialogueState) -> bool:
+        return False if len(state.history) > 2 else True
         

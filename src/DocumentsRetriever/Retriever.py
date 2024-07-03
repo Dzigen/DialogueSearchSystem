@@ -12,4 +12,7 @@ class RetrieverModule:
     @Logger.cls_se_log('''Формирование базового набора 
                        релевантных документов''')
     def search(self, state: DialogueState):
-        pass
+        
+        # TODO : !!!STUB!!!
+        docs = ['doc1', 'doc2', 'doc3']
+        state.base_relevant_docs = docs

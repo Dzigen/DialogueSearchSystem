@@ -11,5 +11,8 @@ class ReducerModule:
 
     @Logger.cls_se_log('''Фильтрация документов
                        на основании уточняющего ответа''')
-    def filter_documents(self, dialogue_state: DialogueState):
-        pass
+    def filter_documents(self, state: DialogueState):
+        
+        # TODO : !!!STUB!!!
+        filtered_docs = [1, 3]
+        state.history[-1].filtered_relevant_docs = filtered_docs

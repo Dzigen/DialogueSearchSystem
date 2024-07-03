@@ -1,7 +1,7 @@
 from src.CriteriaSelector.DynamicSelector import DynamicSelector
 from src.CriteriaSelector.StaticSelector import StaticSelector
 from src.CriteriaSelector.utils import SelectorConfig
-from src.utils import DialogueState
+from src.utils import DialogueState, DialogueTurn
 from src.logger import Logger
 
 class SelectorModule:
@@ -14,4 +14,8 @@ class SelectorModule:
     @Logger.cls_se_log('''поиск критерия 
                        для аггрегации документов''')
     def find_criteria(self, state: DialogueState):
-        pass
+        
+        # TODO : !!!STUB!!!
+        state.history.append(DialogueTurn())
+        topic = 'test_criteria'
+        state.history[-1].topic = topic

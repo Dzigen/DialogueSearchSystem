@@ -12,4 +12,7 @@ class SummarizerModule:
     @Logger.cls_se_log('''Генерация ответа на основании концентрированного
                        набора релевантных документов''')
     def create_answer(self, state: DialogueState):
-        pass
+        
+        # TODO : !!!STUB!!!
+        answer = 'test_answer'
+        state.answer = answer
