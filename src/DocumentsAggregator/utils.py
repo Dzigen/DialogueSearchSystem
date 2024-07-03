@@ -10,5 +10,6 @@ class AggregatorConfig:
     @staticmethod
     def load(cls):
         yaml = YAML(typ='safe')
-        data = yaml.load('../config.yaml')
+        with open("../config.yaml", 'r', encoding='utf-8') as fd:
+            data = yaml.load(fd.read())
         return cls(**data['aggregator'])

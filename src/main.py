@@ -1,3 +1,10 @@
+import sys
+import os
+cwd = os.getcwd()
+#print(cwd)
+sys.path.insert(0, cwd)
+
+
 from src.CriteriaSelector.Selector import SelectorModule
 from src.DocumentsAggregator.Aggregator import AggregatorModule
 from src.DocumentsReducer.Reducer import ReducerModule
@@ -14,13 +21,13 @@ class DialogueSearch:
         self.log = logger.get_logger(__name__)
         self.log.info("Initiating DialogueSearch-class")
 
-        self.selector = SelectorModule(config['selector'])
-        self.aggregator = AggregatorModule(config['aggregator'])
-        self.reducer = ReducerModule(config['reducer'])
-        self.retriever = RetrieverModule(config['retriever'])
-        self.summarizer = SummarizerModule(config['summarizer'])
-        self.generator = GeneratorModule(config['generator'])
-        self.controller = ControllerModule(config['controller'])
+        self.selector = SelectorModule(config.selector)
+        self.aggregator = AggregatorModule(config.aggregator)
+        self.reducer = ReducerModule(config.reducer)
+        self.retriever = RetrieverModule(config.retriever)
+        self.summarizer = SummarizerModule(config.summarizer)
+        self.generator = GeneratorModule(config.generator)
+        self.controller = ControllerModule(config.controller)
         self.user_handler = UserHandler()
 
     @Logger.cls_se_log(info="Start dialogue session")
@@ -51,4 +58,3 @@ class DialogueSearch:
         # Этап 7
         self.summarizer.create_answer(dialogue_state)
         self.user_handler.answer(dialogue_state)
-

@@ -6,7 +6,8 @@ class ReducerConfig:
     model: str
 
     @staticmethod
-    def load(cls):
+    def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
-        data = yaml.load('../config.yaml')
+        with open(config_path, 'r', encoding='utf-8') as fd:
+            data = yaml.load(fd.read())
         return cls(**data['reducer'])

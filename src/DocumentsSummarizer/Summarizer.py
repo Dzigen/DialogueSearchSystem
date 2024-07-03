@@ -1,9 +1,9 @@
-from src.DocumentsSummarizer.utils import SummarizerConfig, base_config
+from src.DocumentsSummarizer.utils import SummarizerConfig
 from src.utils import DialogueState
 from src.logger import Logger
 
 class SummarizerModule:
-    def __init__(self, config: SummarizerConfig = base_config) -> None:
+    def __init__(self, config: SummarizerConfig) -> None:
         logger = Logger(True)
         self.log = logger.get_logger(__name__)
         self.log.info("Initiating Summarizer-class")
