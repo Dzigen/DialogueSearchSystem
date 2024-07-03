@@ -16,19 +16,19 @@ from src.utils import DialogueState, UserHandler, DialogueSearchConfig, Dialogue
 from src.logger import Logger
 
 class DialogueSearch:
-    def __init__(self, config: DialogueSearchConfig):
-        logger = Logger(True)
+    def __init__(self, config: DialogueSearchConfig, show_log=True):
+        logger = Logger(show_log)
         self.log = logger.get_logger(__name__)
         self.log.info("Initiating DialogueSearch-class")
 
-        self.selector = SelectorModule(config.selector)
-        self.aggregator = AggregatorModule(config.aggregator)
-        self.reducer = ReducerModule(config.reducer)
-        self.retriever = RetrieverModule(config.retriever)
-        self.summarizer = SummarizerModule(config.summarizer)
-        self.generator = GeneratorModule(config.generator)
-        self.controller = ControllerModule(config.controller)
-        self.user_handler = UserHandler()
+        self.selector = SelectorModule(config.selector, self.log)
+        self.aggregator = AggregatorModule(config.aggregator, self.log)
+        self.reducer = ReducerModule(config.reducer, self.log)
+        self.retriever = RetrieverModule(config.retriever, self.log)
+        self.summarizer = SummarizerModule(config.summarizer, self.log)
+        self.generator = GeneratorModule(config.generator, self.log)
+        self.controller = ControllerModule(config.controller, self.log)
+        self.user_handler = UserHandler(self.log)
 
     @Logger.cls_se_log(info="Start dialogue session")
     def start(self, dialogue_format: str = 'single-turn'):

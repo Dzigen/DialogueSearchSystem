@@ -3,14 +3,12 @@ from src.utils import DialogueState
 from src.logger import Logger
 
 class ReducerModule:
-    def __init__(self, config: ReducerConfig) -> None:
-        logger = Logger(True)
-        self.log = logger.get_logger(__name__)
+    def __init__(self, config: ReducerConfig, log) -> None:
+        self.log = log
         self.log.info("Initiating Reducer-class")
         self.config = config
 
-    @Logger.cls_se_log('''Фильтрация документов
-                       на основании уточняющего ответа''')
+    @Logger.cls_se_log('''Фильтрация документов на основании уточняющего ответа''')
     def filter_documents(self, state: DialogueState):
         
         # TODO : !!!STUB!!!

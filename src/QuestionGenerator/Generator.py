@@ -3,9 +3,8 @@ from src.utils import DialogueState
 from src.logger import Logger
 
 class GeneratorModule:
-    def __init__(self, config: GeneratorConfig) -> None:
-        logger = Logger(True)
-        self.log = logger.get_logger(__name__)
+    def __init__(self, config: GeneratorConfig, log) -> None:
+        self.log = log
         self.log.info("Initiating Generator-class")
         self.config = config
         

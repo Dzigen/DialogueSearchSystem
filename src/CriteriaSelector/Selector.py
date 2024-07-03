@@ -5,14 +5,12 @@ from src.utils import DialogueState, DialogueTurn
 from src.logger import Logger
 
 class SelectorModule:
-    def __init__(self, config: SelectorConfig) -> None:
-        logger = Logger(True)
-        self.log = logger.get_logger(__name__)
+    def __init__(self, config: SelectorConfig, log) -> None:
+        self.log = log
         self.log.info("Initiating Selector-class")
         self.config = config
 
-    @Logger.cls_se_log('''поиск критерия 
-                       для аггрегации документов''')
+    @Logger.cls_se_log('''Поиск критерия для аггрегации документов''')
     def find_criteria(self, state: DialogueState):
         
         # TODO : !!!STUB!!!

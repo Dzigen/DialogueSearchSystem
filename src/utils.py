@@ -6,6 +6,7 @@ from src.DocumentsRetriever.utils import RetrieverConfig
 from src.DocumentsSummarizer.utils import SummarizerConfig
 from src.QuestionGenerator.utils import GeneratorConfig
 from src.StopConditionController.utils import ControllerConfig
+from src.logger import Logger
 
 from ruamel.yaml import YAML
 from typing import List
@@ -58,14 +59,17 @@ class DialogueSearchConfig:
 
 
 class UserHandler:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, log) -> None:
+        self.log = log
+        self.log.info("Initiating UserHandler-class")
 
+    @Logger.cls_se_log("Ожидаем запрос от пользователя")
     def ask(self, state: DialogueState) -> None:
         print("[BOT] Введите ваш запрос")
         query = input("[YOU] ")
         state.query = query
 
+    @Logger.cls_se_log("Ожидаем уточняющий ответ от пользователя")
     def clarify(self, state: DialogueState) -> None:
         cur_turn = state.history[-1]
         print(f"[BOT] Уточните следующую информацию:\n{cur_turn.question}")
@@ -75,6 +79,7 @@ class UserHandler:
         answer = input("[YOU] ")
         state.history[-1].answer = int(answer)
 
+    @Logger.cls_se_log("Отправляет финальный ответ системы пользователяю")
     def answer(self, state: DialogueState) -> None:
         print("[BOT] По вашему запросу был найден следующий ответ:\n", state.answer)
         
