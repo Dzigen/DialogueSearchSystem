@@ -4,7 +4,6 @@ cwd = os.getcwd()
 #print(cwd)
 sys.path.insert(0, cwd)
 
-
 from src.CriteriaSelector.Selector import SelectorModule
 from src.DocumentsAggregator.Aggregator import AggregatorModule
 from src.DocumentsReducer.Reducer import ReducerModule
@@ -12,7 +11,7 @@ from src.DocumentsRetriever.Retriever import RetrieverModule
 from src.DocumentsSummarizer.Summarizer import SummarizerModule
 from src.QuestionGenerator.Generator import GeneratorModule
 from src.StopConditionController.Controller import ControllerModule
-from src.utils import DialogueState, UserHandler, DialogueSearchConfig, DialogueTurn
+from src.utils import DialogueState, UserHandler, DialogueSearchConfig
 from src.logger import Logger
 
 class DialogueSearch:
