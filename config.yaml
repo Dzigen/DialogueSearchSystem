@@ -13,8 +13,12 @@ reducer:
   model: ""
 
 retriever:
-  model: ""
-  N_docs: 100
+  model_path: ""
+  model_kwargs: {'device':'cpu'}
+  encode_kwargs: {'normalize_embeddings': True}
+  vectordb_path: ""
+  base_search_type: "similarity_score_threshold"
+  base_search_config: {"score_threshold": 0.5}
 
 summarizer:
   model: ""

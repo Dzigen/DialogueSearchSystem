@@ -35,7 +35,7 @@ class DialogueSearch:
 
         # Этап 1 
         self.user_handler.ask(dialogue_state)
-        self.retriever.search(dialogue_state)
+        self.retriever.base_search(dialogue_state)
 
         if dialogue_format == 'multi-turn':
             # Этап 2
@@ -46,7 +46,7 @@ class DialogueSearch:
                 # Этап 4
                 self.aggregator.extract_info(dialogue_state)
                 self.aggregator.generalize_info(dialogue_state)
-                # ЭТап 5
+                # Этап 5
                 self.generator.create_question(dialogue_state)
                 # Этап 6
                 self.user_handler.clarify(dialogue_state)

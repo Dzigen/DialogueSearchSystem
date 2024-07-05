@@ -8,6 +8,7 @@ from src.QuestionGenerator.utils import GeneratorConfig
 from src.StopConditionController.utils import ControllerConfig
 from src.logger import Logger
 
+from langchain_core.documents.base import Document
 from ruamel.yaml import YAML
 from typing import List
 
@@ -33,7 +34,7 @@ class DialogueTurn:
 @dataclass
 class DialogueState:
     query: str = None
-    base_relevant_docs: List[str] = None
+    base_relevant_docs: List[Document] = None
     history: List[DialogueTurn] = field(default_factory=lambda: [])
     answer: str = None
 
