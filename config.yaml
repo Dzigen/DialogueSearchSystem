@@ -15,7 +15,7 @@ reducer:
 retriever:
   model_path: ""
   model_kwargs: {'device':'cpu'}
-  encode_kwargs: {'normalize_embeddings': True}
+  encode_kwargs: {'normalize_embeddings': False, 'prompt': 'query: '}
   vectordb_path: ""
   base_search_type: "similarity_score_threshold"
   base_search_config: {"score_threshold": 0.5}
