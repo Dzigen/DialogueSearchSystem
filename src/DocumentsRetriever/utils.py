@@ -26,3 +26,8 @@ class RetrieverConfig:
         with open(config_path, 'r', encoding='utf-8') as fd:
             data = yaml.load(fd.read())
         return cls(**data['retriever'])
+    
+@dataclass
+class RawData:
+    texts: List[str]
+    metadata: List[dict]

@@ -1,4 +1,4 @@
-from src.DocumentsRetriever.utils import RetrieverConfig
+from src.DocumentsRetriever.utils import RetrieverConfig, RawData
 from src.utils import DialogueState
 from src.logger import Logger
 
@@ -9,7 +9,7 @@ from langchain.retrievers import EnsembleRetriever
 from langchain_core.runnables import ConfigurableField
 
 class RetrieverModule:
-    def __init__(self, config: RetrieverConfig, log) -> None:
+    def __init__(self, config: RetrieverConfig, log, data: RawData = None) -> None:
         self.log = log
         self.log.info("Initiating Retriever-class")
         self.config = config
@@ -19,7 +19,13 @@ class RetrieverModule:
             model_kwargs=self.config.model_kwargs,
             encode_kwargs=self.config.encode_kwargs
         )
-        self.vectordb = FAISS.load_local(self.config.vectordb_path, self.embeddings)
+
+        if data is None:
+            self.vectordb = FAISS.load_local(self.config.vectordb_path, self.embeddings, 
+                                             **self.config.faiss_kwargs)
+        else:
+            self.vectordb = FAISS.from_texts(data.texts, self.embeddings, data.metadata, 
+                                             **self.config.faiss_kwargs)
 
     @Logger.cls_se_log('''Извлечение релевантного набора документов из базы знаний''')
     def retrieve(self, query: str, s_type: str, s_config: Dict[str,object]):
