@@ -15,6 +15,7 @@ from dataclasses import asdict
 import pandas as pd
 
 from src.DocumentsParser.Splitter.utils import SplitterConfig
+from src.DocumentsParser.utils import TABLE_DIR_INFO_FILE, MDS_DIR_INFO_FILE, DOCS_DIR_INFO_FILE
 from src.logger import Logger
 
 class BaselineSplitter:
@@ -43,7 +44,7 @@ class BaselineSplitter:
         log_data = {
             'splitter': self.__class__.__dict__['__module__'],
             'config': asdict(self.config)}
-        with open(f"{self.config.save_dir}/{self.config.logfile_name}", 'w', encoding='utf-8') as fd:
+        with open(f"{self.config.save_dir}/{TABLE_DIR_INFO_FILE}", 'w', encoding='utf-8') as fd:
             fd.write(json.dumps(log_data, indent=1))
 
     @Logger.cls_se_log('''Создание директории для сохранения 
@@ -56,22 +57,33 @@ class BaselineSplitter:
             self.log.warning(f"Директория '{self.config.save_dir}' уже существует")
             return False
 
+    @Logger.cls_se_log('''Получение идентификаторов документов''')
+    def get_docs_id(self, mds_filenames):
+        return [md.replace('.md', '.pdf') for md in mds_filenames]
+        
+
     @Logger.cls_se_log('''Выполнение разбиения набора документов на чанки''')
     def split(self):
         if not self.create_save_dir():
             return
 
         files = sorted(os.listdir(self.config.load_dir))
+        
         mds = list(filter(lambda file: self.filename_regex.search(file) is not None, files))
+        docs_ids = self.get_docs_id(mds)
 
         chunked_mds = []
-        for md_name in tqdm(mds):
+        for doc_id, md_name in tqdm(zip(docs_ids, mds)):
             with open(f"{self.config.load_dir}/{md_name}") as fd:
                 md_text = fd.read()
 
             splits = self.splitters[0].split_text(md_text)
             if len(self.splitters) > 1:
                 splits = self.splitters[1].split_documents(splits)
+
+            for chunk in splits:
+                chunk.metadata['doc_id'] = doc_id
+
             chunked_mds += splits
 
         df = pd.DataFrame(chunked_mds)

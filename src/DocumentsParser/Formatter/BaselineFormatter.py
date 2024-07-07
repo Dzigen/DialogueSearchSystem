@@ -6,6 +6,7 @@ from dataclasses import asdict
 import json
 
 from src.DocumentsParser.Formatter.utils import FormatterConfig
+from src.DocumentsParser.utils import MDS_DIR_INFO_FILE
 from src.logger import Logger
 
 class BaselineFormatter:
@@ -21,7 +22,7 @@ class BaselineFormatter:
         log_data = {
             'formatter': self.__class__.__dict__['__module__'],
             'config': asdict(self.config)}
-        with open(f"{self.config.save_dir}/{self.config.logfile_name}", 'w', encoding='utf-8') as fd:
+        with open(f"{self.config.save_dir}/{MDS_DIR_INFO_FILE}", 'w', encoding='utf-8') as fd:
             fd.write(json.dumps(log_data, indent=1))
 
     @Logger.cls_se_log('''Создание директории для сохранения 
