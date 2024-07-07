@@ -15,7 +15,7 @@ from dataclasses import asdict
 import pandas as pd
 
 from src.DocumentsParser.Splitter.utils import SplitterConfig
-from src.DocumentsParser.utils import TABLE_DIR_INFO_FILE, MDS_DIR_INFO_FILE, DOCS_DIR_INFO_FILE
+from src.DocumentsParser.utils import INFO_FILE, TABLES_DIR_TABLE_NAME
 from src.logger import Logger
 
 class BaselineSplitter:
@@ -44,7 +44,7 @@ class BaselineSplitter:
         log_data = {
             'splitter': self.__class__.__dict__['__module__'],
             'config': asdict(self.config)}
-        with open(f"{self.config.save_dir}/{TABLE_DIR_INFO_FILE}", 'w', encoding='utf-8') as fd:
+        with open(f"{self.config.save_dir}/{INFO_FILE}", 'w', encoding='utf-8') as fd:
             fd.write(json.dumps(log_data, indent=1))
 
     @Logger.cls_se_log('''Создание директории для сохранения 
@@ -86,6 +86,8 @@ class BaselineSplitter:
 
             chunked_mds += splits
 
-        df = pd.DataFrame(chunked_mds)
-        df.to_csv(f"{self.config.save_dir}/{self.config.table_name}", index=False, sep=';')
+        df = pd.DataFrame(list(map(lambda item: [item.page_content, item.metadata], chunked_mds)), columns=['chunks', 'metadata'])
+        df.to_csv(f"{self.config.save_dir}/{TABLES_DIR_TABLE_NAME}", index=False, sep=';')
         self.save_operation_log()
+
+        return df

@@ -1,4 +1,4 @@
-DOCS_DIR_INFO_FILE = 'info.csv'
-MDS_DIR_INFO_FILE = 'operation_info.json'
-TABLE_DIR_INFO_FILE = 'operation_info.json'
-DBS_DIR_INFO_FILE = 'operation_info.json'
+DOCS_DIR_TABLE_NAME = 'info.csv'
+TABLES_DIR_TABLE_NAME = 'chunked_docs.csv'
+DBS_DIR_DB_NAME = 'database'
+INFO_FILE = 'operation_info.json'

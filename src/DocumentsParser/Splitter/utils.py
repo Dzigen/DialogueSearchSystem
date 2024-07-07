@@ -13,9 +13,7 @@ class SplitterConfig:
     load_dir: str
     save_dir: str
     modification: dict
-    table_name: str = 'chunked_docs.csv'
     filename_regex: str = '.md$'
-    logfile_name: str = 'operation_info.json'
 
 # Есть 4 возможные конфигурации разбиения текста на чанки:
 # 1. markdown + recursive
