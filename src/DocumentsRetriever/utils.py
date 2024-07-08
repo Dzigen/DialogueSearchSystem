@@ -18,14 +18,35 @@ from typing import List, Dict
 # 4. mmr
 # 5. bm25
 
+#k: Amount of documents to return (Default: 4)
+#score_threshold: Minimum relevance threshold for similarity_score_threshold
+#fetch_k: Amount of documents to pass to MMR algorithm (Default: 20) 
+#lambda_mult: Diversity of results returned by MMR; 1 for minimum diversity and 0 for maximum. (Default: 0.5)
+
+# Настраиваемые параметры у каждого из алгоритмов
+# similarity - [k]
+# mmr - [k, fetch_k, lambda_mult]
+# bm25 - [k]
+
 @dataclass
 class RetrieverConfig:
     model_path: str
-    model_kwargs: dict
-    encode_kwargs: dict
-    vectordb_path: str
-    base_search_type: str # similarity | similarity_score_threshold
-    base_search_config: Dict[str, object] # score_threshold | score_threshold | k
+
+    densedb_path: str
+    densedb_kwargs: dict 
+    
+    sparsedb_path: str
+    sparsedb_kwargs: dict
+    
+    encode_kwargs: dict = {'normalize_embeddings': False, 'prompt': 'query: '}
+    model_kwargs: dict = {'device': 'cuda'}
+    
+    params: dict = {
+        'similarity': {'k': 4}, 
+        'mmr': {'lambda_mult': 0.5, 'fetch_k': 20, 'k': 4}, 
+        'bm25': {'k': 4}}
+    
+    weights: List[float] = [0.3, 0.3, 0.4]
 
     @staticmethod
     def load(cls, config_path: str = 'config.yaml'):
