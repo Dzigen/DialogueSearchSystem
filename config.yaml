@@ -13,8 +13,8 @@ reducer:
   model: ""
 
 retriever:
-  model_path: 'intfloat/multilingual-e5-small'
-  model_kwargs: {'device':'cpu'}
+  model_path: '/home/aisummer/mikhail_workspace/nlp-service/models/intfloat/multilingual-e5-small'
+  model_kwargs: {'device':'cuda'}
   encode_kwargs: {'normalize_embeddings': False, 'prompt': 'query: '}
   faiss_kwargs: {'distance_strategy': 'EUCLIDEAN_DISTANCE'}
   vectordb_path: ""

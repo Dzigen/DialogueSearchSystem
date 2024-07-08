@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from ruamel.yaml import YAML
 from typing import List, Dict
 
-# USEFULL links
+# USEFUL links
 # https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/vectorstore/
 # https://stackoverflow.com/questions/77217193/langchain-how-to-use-a-custom-embedding-model-locally
 # https://github.com/langchain-ai/langchain/discussions/9645
@@ -10,6 +10,13 @@ from typing import List, Dict
 # https://www.kaggle.com/discussions/general/509903
 # https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/ensemble/
 # https://api.python.langchain.com/en/latest/retrievers/langchain.retrievers.ensemble.EnsembleRetriever.html
+
+# Есть 5 возможных конфигураций алгооритма поиска релевантных фрагментов в базе документов
+# 1. simmilarity + mmr + bm25
+# 2. simmilarity + mmr
+# 3. simmilarity
+# 4. mmr
+# 5. bm25
 
 @dataclass
 class RetrieverConfig:
