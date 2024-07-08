@@ -4,7 +4,7 @@ from src.logger import Logger
 
 from typing import Dict
 from langchain_community.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.retrievers import EnsembleRetriever
 from langchain.retrievers import BM25Retriever
 from langchain_core.runnables import ConfigurableField
@@ -57,9 +57,9 @@ class RetrieverModule:
         else:
             s_type = list(self.config.params.keys())[0]
             if s_type == 'bm25':
-                self.retriver = self.bm25_retriever
+                self.retriever = self.bm25_retriever
             else:
-                self.retriver = self.densedb.as_retriever(
+                self.retriever = self.densedb.as_retriever(
                     search_type=s_type, search_kwargs=self.config.params[s_type])
 
     @Logger.cls_se_log('''Формирование базового набора релевантных документов''')

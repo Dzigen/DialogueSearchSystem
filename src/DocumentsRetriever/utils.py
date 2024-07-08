@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from ruamel.yaml import YAML
 from typing import List, Dict
 
@@ -33,20 +33,21 @@ class RetrieverConfig:
     model_path: str
 
     densedb_path: str
-    densedb_kwargs: dict 
-    
     sparsedb_path: str
-    sparsedb_kwargs: dict
+
+    densedb_kwargs: Dict[str, object] = field(default_factory=lambda: {'allow_dangerous_deserialization':True})
+    sparsedb_kwargs: Dict[str, object] = field(default_factory=lambda: {})
     
-    encode_kwargs: dict = {'normalize_embeddings': False, 'prompt': 'query: '}
-    model_kwargs: dict = {'device': 'cuda'}
+    encode_kwargs: Dict[str, object] = field(default_factory=lambda: {'normalize_embeddings': False, 'prompt': 'query: '})
+    model_kwargs: Dict[str, object] = field(default_factory=lambda: {'device': 'cuda'})
     
-    params: dict = {
-        'similarity': {'k': 4}, 
-        'mmr': {'lambda_mult': 0.5, 'fetch_k': 20, 'k': 4}, 
-        'bm25': {'k': 4}}
+    params: Dict[str, Dict[str, object]] = field(default_factory=lambda: {
+        'similarity': {'k': 4}
+        #'mmr': {'lambda_mult': 0.5, 'fetch_k': 20, 'k': 4}, 
+        #'bm25': {'k': 4}
+        })
     
-    weights: List[float] = [0.3, 0.3, 0.4]
+    weights: List[float] = field(default_factory=lambda: [0.6, 0.4])
 
     @staticmethod
     def load(cls, config_path: str = 'config.yaml'):
@@ -58,4 +59,4 @@ class RetrieverConfig:
 @dataclass
 class RawData:
     texts: List[str]
-    metadata: List[dict]
+    metadata: List[Dict[str, object]]
