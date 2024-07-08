@@ -11,7 +11,7 @@ from typing import List, Dict
 # https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/ensemble/
 # https://api.python.langchain.com/en/latest/retrievers/langchain.retrievers.ensemble.EnsembleRetriever.html
 
-# Есть 5 возможных конфигураций алгооритма поиска релевантных фрагментов в базе документов
+# Есть 5 возможных конфигураций алгоритма поиска релевантных фрагментов в базе документов
 # 1. simmilarity + mmr + bm25
 # 2. simmilarity + mmr
 # 3. simmilarity
