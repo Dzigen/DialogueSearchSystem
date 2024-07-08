@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from ruamel.yaml import YAML
 from typing import List, Dict
 
-# USEFULL links
+# USEFUL links
 # https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/vectorstore/
 # https://stackoverflow.com/questions/77217193/langchain-how-to-use-a-custom-embedding-model-locally
 # https://github.com/langchain-ai/langchain/discussions/9645
