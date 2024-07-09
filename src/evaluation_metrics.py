@@ -52,7 +52,7 @@ class RetrievalMetrics:
                         for pred_cands, gold_cands in zip(predicted_cands_batch, gold_cands_batch)])
     
 
-#
+# TO CHANGE
 class ReaderMetrics:
     def __init__(self, base_dir):
         self.rouge_obj = ROUGEScore()
