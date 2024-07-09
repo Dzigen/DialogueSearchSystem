@@ -58,6 +58,8 @@ class DialogueSearchConfig:
                for key, value in data.items()}
         )
 
+def create_str_hash(value: str, hash_len=8) -> str:
+    return str(hash(value) % (10 ** hash_len))
 
 class UserHandler:
     def __init__(self, log) -> None:
