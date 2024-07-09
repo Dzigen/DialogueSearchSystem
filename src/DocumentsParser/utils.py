@@ -1,4 +1,5 @@
 DOCS_DIR_TABLE_NAME = 'info.csv'
 TABLES_DIR_TABLE_NAME = 'chunked_docs.csv'
-DBS_DIR_DB_NAME = 'database'
+DBS_DIR_DENSE_VECTORDB_NAME = 'densedb'
+DBS_DIR_SPARSE_VECTORDB_NAME = 'sparsedb'
 INFO_FILE = 'operation_info.json'
