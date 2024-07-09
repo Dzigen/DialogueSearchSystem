@@ -5,13 +5,13 @@ from src.logger import Logger
 from ollama import Client
 
 class SummarizerModule:
-    def __init__(self, config: SummarizerConfig, log) -> None:
-        self.log = log
-        self.log.info("Initiating Summarizer-class")
-        self.config = config
+    def __init__(self) -> None:
+        #self.log = log
+        #self.log.info("Initiating Summarizer-class")
+        #self.config = config
         self.client = Client(host='http://172.20.6.160:11434')
 
-    @Logger.cls_se_log('''Генерация ответа на основании концентрированного набора релевантных документов''')
+    #@Logger.cls_se_log('''Генерация ответа на основании концентрированного набора релевантных документов''')
     def create_answer(self, state: DialogueState, config:llmConfig, user_promt:str, assist_promt:str) -> None:
         
         response = self.client.chat(
