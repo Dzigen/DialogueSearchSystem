@@ -22,9 +22,7 @@ def chat_llm(promt:str) -> str:
         блокировочной цепью и поглощающими аппаратами по ГОСТ 32913; в) автоматическим пневматическим тормозом по ГОСТ 34434; \
         г) стояночным тормозом по ГОСТ 32880. "},
         {"role": "user", "content": promt + '\n'}],
-        stream=True,
-        temperature=0.8,
-        max_tokens=300)
+        stream=True)
 
     # Выводим ответ модели
     for chunk in response:
