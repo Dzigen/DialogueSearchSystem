@@ -3,7 +3,7 @@ import requests
 import json
 
 
-def llm_question(config: llmConfig) -> None:
+def llm_question(config: llmConfig) -> str:
 
     url = 'http://localhost:11434/api/chat'
     data = {
@@ -66,7 +66,7 @@ def llm_question(config: llmConfig) -> None:
     }
 
     response = requests.post(url, json=data, stream=True)
-
+    result = ''
     if response.status_code == 200:
         for chunk in response.iter_content(chunk_size=1024):
             if chunk:
@@ -76,6 +76,7 @@ def llm_question(config: llmConfig) -> None:
                 # Извлечение значения content из JSON-данных
                 if 'message' in json_data and 'content' in json_data['message']:
                     content = json_data['message']['content']
+                    result += json_data['message']['content']
                     print(content, end='')
                 else:
                     print("Content field not found in JSON response.")
@@ -84,7 +85,11 @@ def llm_question(config: llmConfig) -> None:
     else:
         print("Failed to get a successful response. Status code:", response.status_code)
 
+    return result
+
+
 
 if __name__ == '__main__':
     config = llmConfig()
-    llm_question(config)
+    result = llm_question(config)
+    print(result)
