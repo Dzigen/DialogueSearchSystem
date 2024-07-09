@@ -10,6 +10,7 @@ from src.logger import Logger
 
 from langchain_core.documents.base import Document
 from ruamel.yaml import YAML
+from time import time
 from typing import List
 
 configs = {
@@ -58,8 +59,8 @@ class DialogueSearchConfig:
                for key, value in data.items()}
         )
 
-def create_str_hash(value: str, hash_len=8) -> str:
-    return str(hash(value) % (10 ** hash_len))
+def create_id(hash_len=8) -> str:
+    return str(hash(time()) % (10 ** hash_len))
 
 class UserHandler:
     def __init__(self, log) -> None:
