@@ -14,6 +14,7 @@ from torchmetrics.text import BLEUScore
 import evaluate
 import numpy as np
 from typing import List
+from tqdm import tqdm
 
 #
 class RetrievalMetrics:
@@ -40,7 +41,7 @@ class RetrievalMetrics:
 
     def mAP(self, predicted_cands_batch: List[List[int]], gold_cands_batch: List[List[float]]) -> float:
         return np.mean([self.AP(pred_cands, gold_cands) 
-                        for pred_cands, gold_cands in zip(predicted_cands_batch, gold_cands_batch)])
+                        for pred_cands, gold_cands in tqdm(zip(predicted_cands_batch, gold_cands_batch))])
 
     def reciprocal_rank(self, predicted_cands: List[int], gold_cands: List[int]) -> float:
         indicators = np.isin(predicted_cands, gold_cands)
@@ -49,7 +50,7 @@ class RetrievalMetrics:
         
     def MRR(self, predicted_cands_batch: List[List[int]], gold_cands_batch: List[List[int]]):
         return np.mean([self.reciprocal_rank(pred_cands, gold_cands) 
-                        for pred_cands, gold_cands in zip(predicted_cands_batch, gold_cands_batch)])
+                        for pred_cands, gold_cands in tqdm(zip(predicted_cands_batch, gold_cands_batch))])
     
 
 #
