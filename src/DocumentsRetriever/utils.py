@@ -47,7 +47,7 @@ class RetrieverConfig:
         #'bm25': {'k': 4}
         })
     
-    weights: List[float] = field(default_factory=lambda: [0.6, 0.4])
+    weights: List[float] = field(default_factory=lambda: [1.0])
 
     @staticmethod
     def load(cls, config_path: str = 'config.yaml'):
