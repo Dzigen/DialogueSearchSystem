@@ -25,62 +25,68 @@ class SummarizerModule:
     '''
 
 
-    def __init__(self) -> None:
-        #self.log = log
-        #self.log.info("Initiating Summarizer-class")
-        #self.config = config
-        pass
+    def __init__(self, config:llmConfig, log) -> None:
+        self.log = log
+        self.log.info("Initiating Summarizer-class")
+        self.config = config
+        
+    def prepare_assistant_content(self, state):
+        text_chunks = [doc.page_content for doc in state.base_relevant_docs]
+        assist_content = '\n\n'.join([self.config.assist_prompt] + text_chunks)
+        return assist_content
 
     #@Logger.cls_se_log('''Генерация ответа на основании концентрированного набора релевантных документов''')
-    def create_answer(self, state: DialogueState, config:llmConfig, user_promt:str, assist_promt:str) -> None:
-        
+    def create_answer(self, state: DialogueState) -> None:
+
+        assist_content = self.prepare_assistant_content(state)
+
         url = 'http://localhost:11434/api/chat'
         data = {
             "model": "llama3",
             "messages": [
                 {
                     "role": "system",
-                    "content": "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
+                    "content": self.config.system_prompt
                 },
                 {
                     "role": "assistant",
-                    "content": assist_promt
+                    "content": assist_content
                 },
                 {
                     "role": "user",
-                    "content": user_promt
+                    "content": state.query
                 }
             ],
-            "stream": config.stream,
+            "stream": self.config.stream,
             "options": {
-                "num_keep": config.num_keep,
-                "seed": config.seed,
-                "num_predict": config.num_predict,
-                "top_k": config.top_k,
-                "top_p": config.top_p,
-                "tfs_z": config.tfs_z,
-                "typical_p": config.typical_p,
-                "repeat_last_n": config.repeat_last_n,
-                "temperature": config.temperature,
-                "repeat_penalty": config.repeat_penalty,
-                "presence_penalty": config.presence_penalty,
-                "frequency_penalty": config.frequency_penalty,
-                "mirostat": config.mirostat,
-                "mirostat_tau": config.mirostat_tau,
-                "mirostat_eta": config.mirostat_eta,
-                "penalize_newline": config.penalize_newline,
-                #"stop": config.stop,
-                "numa": config.numa,
-                "num_ctx": config.num_ctx,
-                "num_batch": config.num_batch,
-                "num_gpu": config.num_gpu,
-                "main_gpu": config.main_gpu,
-                "low_vram": config.low_vram,
-                "f16_kv": config.f16_kv,
-                "vocab_only": config.vocab_only,
-                "use_mmap": config.use_mmap,
-                "use_mlock": config.use_mlock,
-                "num_thread": config.num_thread
+                "num_keep": self.config.num_keep,
+                "seed": self.config.seed,
+                "num_predict": self.config.num_predict,
+                "top_k": self.config.top_k,
+                "top_p": self.config.top_p,
+                "tfs_z": self.config.tfs_z,
+                "typical_p": self.config.typical_p,
+                "repeat_last_n": self.config.repeat_last_n,
+                "temperature": self.config.temperature,
+                "repeat_penalty": self.config.repeat_penalty,
+                "presence_penalty": self.config.presence_penalty,
+                "frequency_penalty": self.config.frequency_penalty,
+                "mirostat": self.config.mirostat,
+                "mirostat_tau": self.config.mirostat_tau,
+                "mirostat_eta": self.config.mirostat_eta,
+                "penalize_newline": self.config.penalize_newline,
+                #"stop": self.config.stop,
+                "numa": self.config.numa,
+                "num_ctx": self.config.num_ctx,
+                "num_batch": self.config.num_batch,
+                "num_gpu": self.config.num_gpu,
+                "main_gpu": self.config.main_gpu,
+                "low_vram": self.config.low_vram,
+                "f16_kv": self.config.f16_kv,
+                "vocab_only": self.config.vocab_only,
+                "use_mmap": self.config.use_mmap,
+                "use_mlock": self.config.use_mlock,
+                "num_thread": self.config.num_thread
             }
         }
 
@@ -104,5 +110,4 @@ class SummarizerModule:
         else:
             print("Failed to get a successful response. Status code:", response.status_code)
 
-        answer = result
-        state.answer = answer
+        state.answer = result
