@@ -28,8 +28,11 @@ class RetrievalMetrics:
 
     def recall(self, predicted_cands: List[int], gold_cands: List[int], k: int) -> float:
         true_positive = np.isin(predicted_cands[:k], gold_cands).sum()
-        false_negative = k - len(true_positive)
+        false_negative = len(gold_cands) - true_positive
         return round(true_positive / (true_positive + false_negative),5)
+
+    def f1_score(self, pred_cands: List[int], gold_cands: List[int], k: int) -> float:
+        return (2 * self.precision(pred_cands, gold_cands, k) * self.recall(pred_cands, gold_cands, k)) / (self.precision(pred_cands, gold_cands, k) + self.recall(pred_cands, gold_cands, k))
 
     def AP(self, predicted_cands: List[int], gold_cands: List[int]) -> float:
         indicators = np.isin(predicted_cands, gold_cands)
@@ -41,7 +44,7 @@ class RetrievalMetrics:
 
     def mAP(self, predicted_cands_batch: List[List[int]], gold_cands_batch: List[List[float]]) -> float:
         return np.mean([self.AP(pred_cands, gold_cands) 
-                        for pred_cands, gold_cands in tqdm(zip(predicted_cands_batch, gold_cands_batch))])
+                        for pred_cands, gold_cands in zip(predicted_cands_batch, gold_cands_batch)])
 
     def reciprocal_rank(self, predicted_cands: List[int], gold_cands: List[int]) -> float:
         indicators = np.isin(predicted_cands, gold_cands)
@@ -50,7 +53,7 @@ class RetrievalMetrics:
         
     def MRR(self, predicted_cands_batch: List[List[int]], gold_cands_batch: List[List[int]]):
         return np.mean([self.reciprocal_rank(pred_cands, gold_cands) 
-                        for pred_cands, gold_cands in tqdm(zip(predicted_cands_batch, gold_cands_batch))])
+                        for pred_cands, gold_cands in zip(predicted_cands_batch, gold_cands_batch)])
     
 
 #
