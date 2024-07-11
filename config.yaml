@@ -14,20 +14,34 @@ reducer:
 
 retriever:
   model_path: '/home/aisummer/mikhail_workspace/nlp-service/models/intfloat/multilingual-e5-small'
-  
   densedb_path: '/home/aisummer/mikhail_workspace/nlp-service/data/infsec_gosts/dbs/v2/densedb'
   sparsedb_path: '/home/aisummer/mikhail_workspace/nlp-service/data/infsec_gosts/dbs/v2/sparsedb'
   densedb_kwargs: {'allow_dangerous_deserialization': True}
   sparsedb_kwargs: {}
-
   model_kwargs: {'device':'cuda'}
   encode_kwargs: {'normalize_embeddings': True, 'prompt': 'query: '}
-  
   params: {'similarity': {'k': 3}, 'bm25': {'k': 3}}
   weights: [0.5, 0.5]
 
 summarizer:
-  model: ""
+  assist_prompt: "Твоя база знаний, все ответы генерируются на основе текста ниже:"
+  system_prompt: "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
+  num_ctx: 1024
+  num_keep: 5 
+  seed: 42
+  tfs_z: 0.5
+  temperature: 0.8
+  mirostat_tau: 0.8
+  mirostat_eta: 0.6
+  top_k: 20
+  top_p: 0.9 
+  typical_p: 0.7
+  repeat_last_n: 33
+  mirostat: 1
+  repeat_penalty: 1.2
+  presence_penalty: 1.5
+  frequency_penalty: 1.0
+  penalize_newline: True
 
 generator:
   model: ""

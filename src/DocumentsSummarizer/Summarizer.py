@@ -1,8 +1,6 @@
 from src.DocumentsSummarizer.utils import SummarizerConfig
-from src.LLM_build.utils import llmConfig
 from src.utils import DialogueState
 from src.logger import Logger
-from src.LLM_build.utils import llmConfig
 import requests
 import json
 
@@ -25,7 +23,7 @@ class SummarizerModule:
     '''
 
 
-    def __init__(self, config:llmConfig, log) -> None:
+    def __init__(self, config: SummarizerConfig, log) -> None:
         self.log = log
         self.log.info("Initiating Summarizer-class")
         self.config = config
