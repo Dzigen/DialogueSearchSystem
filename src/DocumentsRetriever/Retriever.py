@@ -63,5 +63,5 @@ class RetrieverModule:
                     search_type=s_type, search_kwargs=self.config.params[s_type])
 
     @Logger.cls_se_log('''Формирование базового набора релевантных документов''')
-    def base_search(self, state: DialogueState):
-        state.base_relevant_docs = self.retriever.invoke(state.query)         
+    def base_search(self, state: DialogueState, k: int = 3):
+        state.base_relevant_docs = self.retriever.invoke(state.query)[:k]         

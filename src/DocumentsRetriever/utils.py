@@ -42,12 +42,12 @@ class RetrieverConfig:
     model_kwargs: Dict[str, object] = field(default_factory=lambda: {'device': 'cuda'})
     
     params: Dict[str, Dict[str, object]] = field(default_factory=lambda: {
-        'similarity': {'k': 4}
-        #'mmr': {'lambda_mult': 0.5, 'fetch_k': 20, 'k': 4}, 
-        #'bm25': {'k': 4}
+        'similarity': {'k': 4},
+        'mmr': {'lambda_mult': 0.5, 'fetch_k': 20, 'k': 4}, 
+        'bm25': {'k': 4}
         })
     
-    weights: List[float] = field(default_factory=lambda: [0.6, 0.4])
+    weights: List[float] = field(default_factory=lambda: [0.3, 0.3, 0.4])
 
     @staticmethod
     def load(cls, config_path: str = 'config.yaml'):

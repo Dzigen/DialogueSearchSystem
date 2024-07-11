@@ -1,0 +1,46 @@
+{
+ "info": {
+  "sberquad": {
+   "db": "v2",
+   "table": "v1"
+  },
+  "squadv2": {
+   "db": "v2",
+   "table": "v1"
+  }
+ },
+ "hyperp": {
+  "model_path": "/home/aisummer/mikhail_workspace/nlp-service/models/intfloat/multilingual-e5-small",
+  "encode_kwargs": {
+   "normalize_embeddings": true,
+   "prompt": "query: "
+  },
+  "params": {
+   "similarity": {
+    "k": 3
+   },
+   "bm25": {
+    "k": 3
+   }
+  },
+  "weights": [
+   0.75,
+   0.25
+  ],
+  "benchmark_sizes": 1000
+ },
+ "scores": {
+  "sberquad": {
+   "MRR": 0.8293332700000001,
+   "Recall": 1.0,
+   "Precision": 0.33333,
+   "F1": 0.499996249990625
+  },
+  "squadv2": {
+   "MRR": 0.71066652,
+   "Recall": 1.0,
+   "Precision": 0.33333,
+   "F1": 0.499996249990625
+  }
+ }
+}

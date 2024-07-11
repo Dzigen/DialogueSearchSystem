@@ -14,6 +14,7 @@ from torchmetrics.text import BLEUScore
 import evaluate
 import numpy as np
 from typing import List
+from tqdm import tqdm
 
 #
 class RetrievalMetrics:
@@ -27,8 +28,11 @@ class RetrievalMetrics:
 
     def recall(self, predicted_cands: List[int], gold_cands: List[int], k: int) -> float:
         true_positive = np.isin(predicted_cands[:k], gold_cands).sum()
-        false_negative = k - len(true_positive)
+        false_negative = len(gold_cands) - true_positive
         return round(true_positive / (true_positive + false_negative),5)
+
+    def f1_score(self, pred_cands: List[int], gold_cands: List[int], k: int) -> float:
+        return (2 * self.precision(pred_cands, gold_cands, k) * self.recall(pred_cands, gold_cands, k)) / (self.precision(pred_cands, gold_cands, k) + self.recall(pred_cands, gold_cands, k))
 
     def AP(self, predicted_cands: List[int], gold_cands: List[int]) -> float:
         indicators = np.isin(predicted_cands, gold_cands)
