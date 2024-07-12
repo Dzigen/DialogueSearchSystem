@@ -44,7 +44,11 @@ class SummarizerModule:
             "messages": [
                 {
                     "role": "system",
+<<<<<<< HEAD
                     "content": self.config.system_prompt
+=======
+                    "content": "Ты вопросно-ответная система. Все ответы генерируй на том языке на котором задан вопрос. Отвечай коротко по вопросам."
+>>>>>>> task_94
                 },
                 {
                     "role": "assistant",
