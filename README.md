@@ -1,6 +1,6 @@
 # DialogueSearchSystem
 
-Запуск контейнера с reader-моделями:
+Развёртывание NLP-сервиса:
 
 podman network create nlp_network
 
