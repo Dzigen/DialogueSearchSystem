@@ -38,7 +38,7 @@ class SummarizerModule:
 
         assist_content = self.prepare_assistant_content(state)
 
-        url = 'http://localhost:11434/api/chat'
+        url = 'http://llama_host:11434/api/chat'
         data = {
             "model": "llama3",
             "messages": [
