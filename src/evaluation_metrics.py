@@ -4,6 +4,8 @@
 # - mAP
 # - MRR
 # - precision
+# - recall
+# - f1
 #Reader metrics
 # - BLEU presision
 # - ROUGE recall
