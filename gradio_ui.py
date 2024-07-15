@@ -39,10 +39,16 @@ def question_handler(message, history):
     
     if dialogue_system.summarizer.llm.conf_Hyper.stream:
         answer = ''
+        chunk = ''
         for answer_part in dialogue_system.start(state):
             if 'content' in answer_part['choices'][0]['delta']:
-                answer += answer_part['choices'][0]['delta']['content']
-                yield answer
+                chunk += answer_part['choices'][0]['delta']['content']
+                if len(chunk) > 5
+                    answer += chunk
+                    chunk = ''
+                    yield answer
+        answer += chunk
+        yield answer        
     else:
         answer = dialogue_system.start(state)['choices'][0]['message']['content']
     state.answer = answer
