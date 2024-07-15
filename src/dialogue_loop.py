@@ -1,9 +1,3 @@
-#import sys
-#import os
-#cwd = os.getcwd()
-#print(cwd)
-#sys.path.insert(0, cwd)
-
 from .CriteriaSelector.Selector import SelectorModule
 from .DocumentsAggregator.Aggregator import AggregatorModule
 from .DocumentsReducer.Reducer import ReducerModule

@@ -1,10 +1,7 @@
 from llama_cpp import Llama
-import sys
-sys.path.insert(0, "/home/aisummer/ssemenov_workspace/nlp-service")
-from src.LLM_Local.utils import LLM_Hardw_Conf
-from src.LLM_Local.utils import LLM_Hyper_Conf
 
-
+from .utils import LLM_Hardw_Conf
+from .utils import LLM_Hyper_Conf
 
 class LLM_model:
     """
@@ -34,14 +31,12 @@ class LLM_model:
 
 
 
-    def generate(self, system_prompt:str, assistant_prompt: str, user_prompt:str ) -> str:
+    def generate(self, assist_content: str, user_prompt:str ) -> str:
 
         """
         Метод для создания чата с моделью и генерации ответа на вопрос
 
         Параметры:
-        -system_prompt:str: System промпт для LLM; \n
-        -assistant_prompt:str: Assistant промпт для LLM; \n
         -user_prompt:str: User промпт для LLM.
 
         Примеры промптов 
@@ -55,20 +50,14 @@ class LLM_model:
         
 
         output = self.model.create_chat_completion(
-
-
             messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "assistant", "content": assistant_prompt},
+            {"role": "system", "content": self.conf_Hyper.system_prompt},
+            {"role": "assistant", "content": f"{self.conf_Hyper.assistant_prompt}\n\n{assist_content}"},
             {"role": "user","content": user_prompt}
             ]
         )
 
-
-
-        return output
-
-
+        return output['choices'][0]["message"]['content']
 
 if __name__=="__main__":
 
@@ -76,9 +65,9 @@ if __name__=="__main__":
     conf2 = LLM_Hyper_Conf()
 
     model = LLM_model(conf1, conf2)
-    system_prompt = "Ты вопросно-ответная система. Отвечай на русском языке."
-    assistant_prompt = "Это твоя база знаний. Используй её при ответе: Вектор – это направленный отрезок прямой, т. е. отрезок, имеющий определенную длину и определенное направление."
+    #system_prompt = "Ты вопросно-ответная система. Отвечай на русском языке."
+    assistant_context = "Это твоя база знаний. Используй её при ответе: Вектор – это направленный отрезок прямой, т. е. отрезок, имеющий определенную длину и определенное направление."
     user_prompt = 'Что такое вектор?'
 
-    output = model.generate(system_prompt, assistant_prompt, user_prompt)
+    output = model.generate(assist_content, user_prompt)
     print(output['choices'][0]["message"]['content'])

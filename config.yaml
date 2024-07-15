@@ -13,7 +13,7 @@ reducer:
   model: ""
 
 retriever:
-  model_path: '/home/aisummer/mikhail_workspace/nlp_service/models/intfloat/multilingual-e5-small'
+  model_path: '/home/aisummer/nlp_models/intfloat/multilingual-e5-small'
   densedb_path: '/home/aisummer/mikhail_workspace/nlp_service/data/infsec_gosts/dbs/v2/densedb'
   sparsedb_path: '/home/aisummer/mikhail_workspace/nlp_service/data/infsec_gosts/dbs/v2/sparsedb'
   densedb_kwargs: {'allow_dangerous_deserialization': True}
@@ -24,25 +24,28 @@ retriever:
   weights: [0.5, 0.5]
 
 summarizer:
-  assist_prompt: "Твоя база знаний, все ответы генерируются на основе текста ниже:"
-  system_prompt: "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
-  num_ctx: 1024
-  num_keep: 5 
-  seed: 42
-  num_predict: 100
-  tfs_z: 0.5
-  temperature: 0.8
-  mirostat_tau: 0.8
-  mirostat_eta: 0.6
-  top_k: 20
-  top_p: 0.9 
-  typical_p: 0.7
-  repeat_last_n: 33
-  mirostat: 1
-  repeat_penalty: 1.2
-  presence_penalty: 1.5
-  frequency_penalty: 1.0
-  penalize_newline: True
+  tech_config:
+    model_path: '/home/aisummer/nlp_models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa'
+    n_gpu_layers: -1
+    seed: 42
+    n_ctx: 512
+    n_batch: 512
+    n_threads: null
+    use_mmap: True
+    use_mlock: True
+
+  strat_config:
+    temperature: 0.8
+    top_k: 40
+    top_p: 0.95
+    min_p: 0.05 
+    typical_p: 1 
+    stream: True
+    max_tokens: 100
+    assistant_prompt: "Твоя база знаний, все ответы генерируются на основе текста ниже:"
+    system_prompt: "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
+    
+
 
 generator:
   model: ""

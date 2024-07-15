@@ -1,9 +1,11 @@
 from .utils import SummarizerConfig
 from ..utils import DialogueState
 from ..logger import Logger
+from .LLM_Local.llm_local import LLM_model
 
 import requests
 import json
+from llama_cpp import Llama
 
 class SummarizerModule:
     '''
@@ -27,85 +29,20 @@ class SummarizerModule:
         self.log = log
         self.log.info("Initiating Summarizer-class")
         self.config = config
+
+        self.llm = LLM_model(self.config.tech_config, self.config.strat_config)
         
     def prepare_assistant_content(self, state):
         text_chunks = [doc.page_content for doc in state.base_relevant_docs]
-        assist_content = '\n\n'.join([self.config.assist_prompt] + text_chunks)
+        assist_content = '\n\n'.join(text_chunks)
         return assist_content
 
-    #@Logger.cls_se_log('''Генерация ответа на основании концентрированного набора релевантных документов''')
+    @Logger.cls_se_log('''Генерация ответа на основании концентрированного набора релевантных документов''')
     def create_answer(self, state: DialogueState) -> None:
 
         assist_content = self.prepare_assistant_content(state)
 
-        url = 'http://0.0.0.0:11434/api/chat'
-        data = {
-            "model": "llama3",
-            "messages": [
-                {
-                    "role": "system",
-                    "content": self.config.system_prompt
-                },
-                {
-                    "role": "assistant",
-                    "content": assist_content
-                },
-                {
-                    "role": "user",
-                    "content": state.query
-                }
-            ],
-            "stream": self.config.stream,
-            "options": {
-                "num_keep": self.config.num_keep,
-                "seed": self.config.seed,
-                "num_predict": self.config.num_predict,
-                "top_k": self.config.top_k,
-                "top_p": self.config.top_p,
-                "tfs_z": self.config.tfs_z,
-                "typical_p": self.config.typical_p,
-                "repeat_last_n": self.config.repeat_last_n,
-                "temperature": self.config.temperature,
-                "repeat_penalty": self.config.repeat_penalty,
-                "presence_penalty": self.config.presence_penalty,
-                "frequency_penalty": self.config.frequency_penalty,
-                "mirostat": self.config.mirostat,
-                "mirostat_tau": self.config.mirostat_tau,
-                "mirostat_eta": self.config.mirostat_eta,
-                "penalize_newline": self.config.penalize_newline,
-                #"stop": self.config.stop,
-                "numa": self.config.numa,
-                "num_ctx": self.config.num_ctx,
-                "num_batch": self.config.num_batch,
-                "num_gpu": self.config.num_gpu,
-                "main_gpu": self.config.main_gpu,
-                "low_vram": self.config.low_vram,
-                "f16_kv": self.config.f16_kv,
-                "vocab_only": self.config.vocab_only,
-                "use_mmap": self.config.use_mmap,
-                "use_mlock": self.config.use_mlock,
-                "num_thread": self.config.num_thread
-            }
-        }
+        answer = self.llm.generate(assist_content, state.query)
 
-        response = requests.post(url, json=data, stream=True)
-        result = ''
-        if response.status_code == 200:
-            for chunk in response.iter_content(chunk_size=1024):
-                if chunk:
-                    string_response = chunk.decode('utf-8')
-                    json_data = json.loads(string_response)
-
-                    # Извлечение значения content из JSON-данных
-                    if 'message' in json_data and 'content' in json_data['message']:
-                        content = json_data['message']['content']
-                        result += json_data['message']['content']
-                        #print(content, end='')
-                    else:
-                        print("Content field not found in JSON response.")
-            print('\n')
-
-        else:
-            print("Failed to get a successful response. Status code:", response.status_code)
-
-        state.answer = result
+        state.answer = answer
+        

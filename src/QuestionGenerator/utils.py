@@ -5,7 +5,7 @@ from ruamel.yaml import YAML
 class GeneratorConfig:
     model: str
 
-    @staticmethod
+    @classmethod
     def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
         with open(config_path, 'r', encoding='utf-8') as fd:

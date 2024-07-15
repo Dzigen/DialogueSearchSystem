@@ -37,11 +37,9 @@ class DialogueSearchConfig:
     @classmethod
     def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
-        with open(config_path, 'r', encoding='utf-8') as fd:
-            data = yaml.load(fd.read())
         return cls(
-            **{key: configs[key](**value) 
-               for key, value in data.items()}
+            **{key: config.load(config_path)
+               for key, config in configs.items()}
         )
 
 def create_id(hash_len=8) -> float:

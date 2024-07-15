@@ -7,9 +7,9 @@ class AggregatorConfig:
     generalizer_model: str
     K_topics: int
    
-    @staticmethod
-    def load(cls):
+    @classmethod
+    def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
-        with open("../config.yaml", 'r', encoding='utf-8') as fd:
+        with open(config_path, 'r', encoding='utf-8') as fd:
             data = yaml.load(fd.read())
         return cls(**data['aggregator'])

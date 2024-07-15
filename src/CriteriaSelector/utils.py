@@ -8,7 +8,7 @@ class SelectorConfig:
     N_clusters: int
     K_keywords: int
 
-    @staticmethod
+    @classmethod
     def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
         with open(config_path, 'r', encoding='utf-8') as fd:
