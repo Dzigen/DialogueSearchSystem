@@ -1,16 +1,1 @@
-2024-07-16 01:11:42,639 — src.dialogue_loop — INFO — Initiating DialogueSearch-class
-2024-07-16 01:11:42,640 — src.dialogue_loop — INFO — Initiating Selector-class
-2024-07-16 01:11:42,640 — src.dialogue_loop — INFO — Initiating Aggregator-class
-2024-07-16 01:11:42,640 — src.dialogue_loop — INFO — Initiating Reducer-class
-2024-07-16 01:11:42,640 — src.dialogue_loop — INFO — Initiating Retriever-class
-2024-07-16 01:11:44,790 — src.dialogue_loop — INFO — Initiating Summarizer-class
-2024-07-16 01:11:45,131 — src.dialogue_loop — INFO — Initiating Generator-class
-2024-07-16 01:11:45,131 — src.dialogue_loop — INFO — Initiating Controller-class
-2024-07-16 01:11:45,131 — src.dialogue_loop — INFO — Initiating UserHandler-class
-2024-07-16 01:11:51,044 — src.dialogue_loop — INFO — START_METHOD: Start dialogue session
-2024-07-16 01:11:51,045 — src.dialogue_loop — INFO — START_METHOD: Формирование базового набора релевантных документов
-2024-07-16 01:11:51,305 — src.dialogue_loop — INFO — END_METHOD: Формирование базового набора релевантных документов
-2024-07-16 01:11:51,306 — src.dialogue_loop — INFO — START_METHOD: Генерация ответа на основании концентрированного набора релевантных документов
-2024-07-16 01:12:01,555 — src.dialogue_loop — INFO — END_METHOD: Генерация ответа на основании концентрированного набора релевантных документов
-2024-07-16 01:12:01,555 — src.dialogue_loop — INFO — DialogueState(query="Какое определение термина 'алгоритм зашифрования'?", base_relevant_docs=[Document(metadata={'Header 2': 'ГОСТ Р 34.13 —', 'doc_id': 'doc4.pdf'}, page_content='2.1.1  \n**алгоритм зашифрования** (encryption algorithm): Алгоритм, реализующий зашифрование, т.е.  \nпреобразующий открытый текст в шифртекст.  \n[ИСО/МЭК 18033-1, статья 2.19]  \n2.1.2'), Document(metadata={'Header 1': 'ПНСТ 799—', 'Header 2': '2022', 'doc_id': 'doc5.pdf'}, page_content='1 См. [5], пункт 3.28.  \n2 См. определение термина «аутентификация стороны» в приложении Б, статья  \nБ.2.9.  \n180 **криптографический протокол аутентификации сторон:** Криптогра'), Document(metadata={'Header 1': 'КРИПТОГРАФИЧЕСКАЯ ЗАЩИТА ИНФОРМАЦИИ', 'Header 2': 'Блочные шифры', 'doc_id': 'doc3.pdf'}, page_content='В настоящем стандарте применены следующие термины с соответствующими определениями.\n2.1.1  \n**алгоритм зашифрования** (encryption algorithm): Алгоритм, реализующий зашифрование, т.е.\nпреобразующий открытый текст в шифртекст.')], history=[], answer='Алгоритм зашифрования (encryption algorithm): Алгоритм, реализующий зашифрование, т.е. преобразующий открытый текст в шифртекст.')
-2024-07-16 01:12:01,555 — src.dialogue_loop — INFO — END_METHOD: Start dialogue session
+2024-07-16 01:58:34,085 — __main__ — INFO — Initiating Summarizer-class

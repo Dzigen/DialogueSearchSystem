@@ -42,7 +42,7 @@ class SummarizerModule:
 
         assist_content = self.prepare_assistant_content(state)
 
-        answer = self.llm.generate(assist_content, state.query)
+        return self.llm.generate(assist_content, state.query)
 
-        state.answer = answer
+        
         

@@ -1,5 +1,6 @@
 from src.utils import DialogueSearchConfig
 from src.dialogue_loop import DialogueSearch
+from src.utils.dialogue_configs import DialogueState
 
 import gradio as gr
 import pandas as pd
@@ -34,14 +35,23 @@ docs_df = pd.read_csv(DOCS_INFO_PATH, sep=';')
 
 #
 def question_handler(message, history):
-    final_state = dialogue_system.start(query=message)
+    state = DialogueState(query=message)
+    
+    if dialogue_system.summarizer.llm.conf_Hyper.stream:
+        answer = ''
+        for answer_part in dialogue_system.start(state):
+            if 'content' in answer_part['choices'][0]['delta']:
+                answer += answer_part['choices'][0]['delta']['content']
+                yield answer
+    else:
+        answer = dialogue_system.start(state)['choices'][0]['message']['content']
+    state.answer = answer
 
-    doc_links = [ docs_df[docs_df['filename'] == item.metadata['doc_id']].iloc[0]['url'] for item in final_state.base_relevant_docs]
+    doc_links = [ docs_df[docs_df['filename'] == item.metadata['doc_id']].iloc[0]['url'] for item in state.base_relevant_docs]
+    source_docs_str = f"Source documents: [{', '.join([f"[{i}]({link})" for i, link in enumerate(doc_links)])}]"
+    system_answer = f"{state.answer}\n\n{source_docs_str}"
 
-    system_answer = f'''{final_state.answer}\n\nSource documents: [{
-        ', '.join([f"[{i}]({link})" for i, link in enumerate(doc_links)])}]'''
-
-    return system_answer
+    yield system_answer
 
 #
 demo = gr.ChatInterface(

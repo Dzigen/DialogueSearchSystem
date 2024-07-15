@@ -1,5 +1,6 @@
 from llama_cpp import Llama
 
+from dataclasses import asdict
 from .utils import LLM_Hardw_Conf
 from .utils import LLM_Hyper_Conf
 
@@ -51,13 +52,14 @@ class LLM_model:
 
         output = self.model.create_chat_completion(
             messages = [
-            {"role": "system", "content": self.conf_Hyper.system_prompt},
-            {"role": "assistant", "content": f"{self.conf_Hyper.assistant_prompt}\n\n{assist_content}"},
+            {"role": "system", "content": self.conf_Hard.system_prompt},
+            {"role": "assistant", "content": f"{self.conf_Hard.assistant_prompt}\n\n{assist_content}"},
             {"role": "user","content": user_prompt}
-            ]
+            ],
+            **asdict(self.conf_Hyper)
         )
 
-        return output['choices'][0]["message"]['content']
+        return output
 
 if __name__=="__main__":
 

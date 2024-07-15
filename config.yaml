@@ -33,6 +33,8 @@ summarizer:
     n_threads: null
     use_mmap: True
     use_mlock: True
+    assistant_prompt: "Твоя база знаний, все ответы генерируются на основе текста ниже:"
+    system_prompt: "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
 
   strat_config:
     temperature: 0.8
@@ -42,8 +44,7 @@ summarizer:
     typical_p: 1 
     stream: True
     max_tokens: 100
-    assistant_prompt: "Твоя база знаний, все ответы генерируются на основе текста ниже:"
-    system_prompt: "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
+
     
 
 

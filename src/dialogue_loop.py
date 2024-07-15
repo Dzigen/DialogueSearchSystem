@@ -24,8 +24,7 @@ class DialogueSearch:
         self.user_handler = UserHandler(self.log)
 
     @Logger.cls_se_log(info="Start dialogue session")
-    def start(self, query: str, dialogue_format: str = 'single-turn'):
-        dialogue_state = DialogueState(query=query)
+    def start(self, dialogue_state: DialogueState, dialogue_format: str = 'single-turn'):
 
         # Этап 1 
         #self.user_handler.ask(dialogue_state)
@@ -49,8 +48,5 @@ class DialogueSearch:
                 self.selector.find_criteria(dialogue_state)
 
         # Этап 7
-        self.summarizer.create_answer(dialogue_state)
+        return self.summarizer.create_answer(dialogue_state)
         #self.user_handler.answer(dialogue_state)
-        self.log.info(dialogue_state)
-
-        return dialogue_state
