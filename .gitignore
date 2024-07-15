@@ -3,3 +3,4 @@ data/sberquad
 data/squadv2
 __pycache__
 models/
+model_llm
