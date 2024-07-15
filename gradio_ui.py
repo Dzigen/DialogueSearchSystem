@@ -43,7 +43,7 @@ def question_handler(message, history):
         for answer_part in dialogue_system.start(state):
             if 'content' in answer_part['choices'][0]['delta']:
                 chunk += answer_part['choices'][0]['delta']['content']
-                if len(chunk) > 5
+                if len(chunk) > 5:
                     answer += chunk
                     chunk = ''
                     yield answer
