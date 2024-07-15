@@ -9,15 +9,13 @@ WORKDIR /nlp_service
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-RUN apt-get -y install uvicorn
-RUN pip install fastapi
-
 ARG APP_DIR=/nlp_service
 ENV PYTHONPATH "${PYTHONPATH}:${APP_DIR}"
 
 COPY src/ ./src
 COPY config.yaml .
+COPY gradio_ui.py .
 
 RUN ls -la
 
-CMD ["uvicorn", "src.api:app", "--reload", "--host", "0.0.0.0", "--port", "8008"]
+CMD ["python", "gradio_ui.py"]
