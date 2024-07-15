@@ -1,6 +1,6 @@
-from src.DocumentsAggregator.utils import AggregatorConfig
-from src.utils import DialogueState
-from src.logger import Logger
+from .utils import AggregatorConfig
+from ..utils import DialogueState
+from ..logger import Logger
 
 class AggregatorModule:
     def __init__(self, config: AggregatorConfig, log) -> None:

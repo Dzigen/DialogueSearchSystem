@@ -58,7 +58,7 @@ class RetrievalMetrics:
                         for pred_cands, gold_cands in zip(predicted_cands_batch, gold_cands_batch)])
     
 
-# TO CHANGE
+# 
 class ReaderMetrics:
     def __init__(self, base_dir):
         self.rouge_obj = ROUGEScore()
@@ -68,19 +68,22 @@ class ReaderMetrics:
         print("Loading ExactMatch")
         self.em_obj = evaluate.load(f"{base_dir}/src/metrics/exact_match")
 
-    def rouge(self, predicted, targets):
+    def bertscore(self, predicted: List[str], targets: List[str]):
+        pass
+
+    def rouge(self, predicted: List[str], targets: List[str]):
         accum = []
         for i in range(len(targets)):
             accum.append(self.rouge_obj(predicted[i], targets[i])['rougeL_fmeasure'])
         return round(np.mean(accum),5)
 
-    def bleu(self, predicted, targets):
+    def bleu(self, predicted: List[str], targets: List[str]):
         accum = []
         for i in range(len(targets)):
             accum.append(self.bleu_obj([predicted[i]], [[targets[i]]]))
         return round(np.mean(accum),5)
 
-    def meteor(self, predicted, targets):
+    def meteor(self, predicted: List[str], targets: List[str]):
         accum = []
         for i in range(len(targets)):
             accum.append(
@@ -88,5 +91,5 @@ class ReaderMetrics:
                     predictions=[predicted[i]], references=[targets[i]])['meteor'])
         return round(np.mean(accum),5)
     
-    def exact_match(self, predicted, targets):
+    def exact_match(self, predicted: List[str], targets: List[str]):
         return round(self.em_obj.compute(predictions=predicted, references=targets)["exact_match"], 2)

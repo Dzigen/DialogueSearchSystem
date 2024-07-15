@@ -1,6 +1,6 @@
-from src.DocumentsReducer.utils import ReducerConfig
-from src.utils import DialogueState
-from src.logger import Logger
+from .utils import ReducerConfig
+from ..utils import DialogueState
+from ..logger import Logger
 
 class ReducerModule:
     def __init__(self, config: ReducerConfig, log) -> None:

@@ -5,8 +5,8 @@ import re
 from dataclasses import asdict
 import json
 
-from src.DocumentsParser.Formatter.utils import FormatterConfig
-from src.DocumentsParser.utils import INFO_FILE
+from .utils import FormatterConfig
+from ..utils import INFO_FILE
 from src.logger import Logger
 
 class BaselineFormatter:

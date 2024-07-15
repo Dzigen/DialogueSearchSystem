@@ -1,18 +1,18 @@
-import sys
-import os
-cwd = os.getcwd()
+#import sys
+#import os
+#cwd = os.getcwd()
 #print(cwd)
-sys.path.insert(0, cwd)
+#sys.path.insert(0, cwd)
 
-from src.CriteriaSelector.Selector import SelectorModule
-from src.DocumentsAggregator.Aggregator import AggregatorModule
-from src.DocumentsReducer.Reducer import ReducerModule
-from src.DocumentsRetriever.Retriever import RetrieverModule
-from src.DocumentsSummarizer.Summarizer import SummarizerModule
-from src.QuestionGenerator.Generator import GeneratorModule
-from src.StopConditionController.Controller import ControllerModule
-from src.utils import DialogueState, UserHandler, DialogueSearchConfig
-from src.logger import Logger
+from .CriteriaSelector.Selector import SelectorModule
+from .DocumentsAggregator.Aggregator import AggregatorModule
+from .DocumentsReducer.Reducer import ReducerModule
+from .DocumentsRetriever.Retriever import RetrieverModule
+from .DocumentsSummarizer.Summarizer import SummarizerModule
+from .QuestionGenerator.Generator import GeneratorModule
+from .StopConditionController.Controller import ControllerModule
+from .utils import DialogueState, UserHandler, DialogueSearchConfig
+from .logger import Logger
 
 class DialogueSearch:
     def __init__(self, config: DialogueSearchConfig, show_log=True):

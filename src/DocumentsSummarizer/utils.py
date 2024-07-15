@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import DefaultDict
 from ruamel.yaml import YAML
 
-
 default_stop = DefaultDict(list)
 @dataclass
 class SummarizerConfig:

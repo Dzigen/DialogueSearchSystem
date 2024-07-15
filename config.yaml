@@ -13,9 +13,9 @@ reducer:
   model: ""
 
 retriever:
-  model_path: '/nlp_service/models/intfloat/multilingual-e5-small'
-  densedb_path: '/nlp_service/data/infsec_gosts/dbs/v2/densedb'
-  sparsedb_path: '/nlp_service/data/infsec_gosts/dbs/v2/sparsedb'
+  model_path: '/home/aisummer/mikhail_workspace/nlp_service/models/intfloat/multilingual-e5-small'
+  densedb_path: '/home/aisummer/mikhail_workspace/nlp_service/data/infsec_gosts/dbs/v2/densedb'
+  sparsedb_path: '/home/aisummer/mikhail_workspace/nlp_service/data/infsec_gosts/dbs/v2/sparsedb'
   densedb_kwargs: {'allow_dangerous_deserialization': True}
   sparsedb_kwargs: {}
   model_kwargs: {'device':'cuda'}

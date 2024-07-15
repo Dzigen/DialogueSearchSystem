@@ -1,6 +1,6 @@
-from src.DocumentsRetriever.utils import RetrieverConfig, RawData
-from src.utils import DialogueState
-from src.logger import Logger
+from .utils import RetrieverConfig, RawData
+from ..utils import DialogueState
+from ..logger import Logger
 
 from typing import Dict
 from langchain_community.vectorstores import FAISS

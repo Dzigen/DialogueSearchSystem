@@ -1,8 +1,8 @@
-from src.CriteriaSelector.DynamicSelector import DynamicSelector
-from src.CriteriaSelector.StaticSelector import StaticSelector
-from src.CriteriaSelector.utils import SelectorConfig
-from src.utils import DialogueState, DialogueTurn
-from src.logger import Logger
+from .DynamicSelector import DynamicSelector
+from .StaticSelector import StaticSelector
+from .utils import SelectorConfig
+from ..utils import DialogueState
+from ..logger import Logger
 
 class SelectorModule:
     def __init__(self, config: SelectorConfig, log) -> None:

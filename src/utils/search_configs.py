@@ -1,13 +1,14 @@
-from dataclasses import dataclass, field
-from src.CriteriaSelector.utils import SelectorConfig
-from src.DocumentsAggregator.utils import AggregatorConfig
-from src.DocumentsReducer.utils import ReducerConfig
-from src.DocumentsRetriever.utils import RetrieverConfig
-from src.DocumentsSummarizer.utils import SummarizerConfig
-from src.QuestionGenerator.utils import GeneratorConfig
-from src.StopConditionController.utils import ControllerConfig
-from src.logger import Logger
+from ..CriteriaSelector.utils import SelectorConfig
+from ..DocumentsAggregator.utils import AggregatorConfig
+from ..DocumentsReducer.utils import ReducerConfig
+from ..DocumentsRetriever.utils import RetrieverConfig
+from ..DocumentsSummarizer.utils import SummarizerConfig
+from ..QuestionGenerator.utils import GeneratorConfig
+from ..StopConditionController.utils import ControllerConfig
+from ..logger import Logger
+from . import DialogueState
 
+from dataclasses import dataclass, field
 from langchain_core.documents.base import Document
 from ruamel.yaml import YAML
 from time import time
@@ -22,22 +23,6 @@ configs = {
     'generator': GeneratorConfig,
     'controller': ControllerConfig
 }
-
-@dataclass
-class DialogueTurn:
-    topic: str = None
-    question: str = None
-    raw_info: List[str] = field(default_factory=lambda: [])
-    choices: List[str] = field(default_factory=lambda: [])
-    answer: int = None
-    filtered_relevant_docs: List[int] = field(default_factory=lambda: [])
-
-@dataclass
-class DialogueState:
-    query: str = None
-    base_relevant_docs: List[Document] = None
-    history: List[DialogueTurn] = field(default_factory=lambda: [])
-    answer: str = None
 
 @dataclass
 class DialogueSearchConfig: 

@@ -1,9 +1,9 @@
-from src.DocumentsSummarizer.utils import SummarizerConfig
-from src.utils import DialogueState
-from src.logger import Logger
+from .utils import SummarizerConfig
+from ..utils import DialogueState
+from ..logger import Logger
+
 import requests
 import json
-
 
 class SummarizerModule:
     '''
@@ -38,7 +38,7 @@ class SummarizerModule:
 
         assist_content = self.prepare_assistant_content(state)
 
-        url = 'http://llama_host:11434/api/chat'
+        url = 'http://0.0.0.0:11434/api/chat'
         data = {
             "model": "llama3",
             "messages": [
