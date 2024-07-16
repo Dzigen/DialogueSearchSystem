@@ -1,3 +1,3 @@
-from Formatter import *
-from Splitter import *
-from utils import *
+from .Formatter import *
+from .Splitter import *
+from .utils import *
