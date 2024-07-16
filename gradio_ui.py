@@ -24,9 +24,9 @@ UNDO_BTN_NAME = 'Удалить предыдущий вопрос/ответ'
 CLEAR_BTN_NAME = 'Отчистить весь чат'
 QUESTION_FIELD_PLACEHOLDER = "Какой у вас вопрос?"
 BOT_AVATAR, USER_AVATAR = [
-    '/home/aisummer/mikhail_workspace/nlp_service/data/ui_images/bot_avatar.jpg',
-    '/home/aisummer/mikhail_workspace/nlp_service/data/ui_images/user_avatar.png']
-DOCS_INFO_PATH = '/home/aisummer/mikhail_workspace/nlp_service/data/infsec_gosts/docs/v1/info.csv'
+    '/nlp_service/data/ui_images/bot_avatar.jpg',
+    '/nlp_service/data/ui_images/user_avatar.png']
+DOCS_INFO_PATH = '/nlp_service/data/infsec_gosts/docs/v1/info.csv'
 
 dialogue_config = DialogueSearchConfig.load()
 dialogue_system = DialogueSearch(dialogue_config)
@@ -54,7 +54,7 @@ def question_handler(message, history):
     state.answer = answer
 
     doc_links = [ docs_df[docs_df['filename'] == item.metadata['doc_id']].iloc[0]['url'] for item in state.base_relevant_docs]
-    source_docs_str = f"Source documents: [{', '.join([f"[{i}]({link})" for i, link in enumerate(doc_links)])}]"
+    source_docs_str = f"Source documents: [{', '.join([f'[{i}]({link})' for i, link in enumerate(doc_links)])}]"
     system_answer = f"{state.answer}\n\n{source_docs_str}"
 
     yield system_answer
