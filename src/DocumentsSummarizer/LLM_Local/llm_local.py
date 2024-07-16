@@ -67,9 +67,14 @@ if __name__=="__main__":
     conf2 = LLM_Hyper_Conf()
 
     model = LLM_model(conf1, conf2)
-    #system_prompt = "Ты вопросно-ответная система. Отвечай на русском языке."
+    
     assistant_context = "Это твоя база знаний. Используй её при ответе: Вектор – это направленный отрезок прямой, т. е. отрезок, имеющий определенную длину и определенное направление."
     user_prompt = 'Что такое вектор?'
 
-    output = model.generate(assist_content, user_prompt)
-    print(output['choices'][0]["message"]['content'])
+    output = model.generate(assistant_context, user_prompt)
+
+    for item in output:
+        try:
+            print(item['choices'][0]['delta']['content'], end='')
+        except Exception:
+            continue
