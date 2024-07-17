@@ -1,0 +1,47 @@
+{
+ "info": {
+  "sberquad": "v1",
+  "squadv2": "v1"
+ },
+ "time_execute_sberquad": 2037.957316160202,
+ "time_execute_squadv2": 1163.0877623558044,
+ "hyperp": {
+  "model_path": "/home/aisummer/nlp_models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa",
+  "tech_params": {
+   "model_path": "/home/aisummer/nlp_models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa",
+   "n_gpu_layers": -1,
+   "seed": 42,
+   "n_ctx": 0,
+   "n_batch": 512,
+   "n_threads": null,
+   "use_mmap": true,
+   "use_mlock": true,
+   "assistant_prompt": "\u0422\u0432\u043e\u044f \u0431\u0430\u0437\u0430 \u0437\u043d\u0430\u043d\u0438\u0439, \u0432\u0441\u0435 \u043e\u0442\u0432\u0435\u0442\u044b \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u044e\u0442\u0441\u044f \u043d\u0430 \u043e\u0441\u043d\u043e\u0432\u0435 \u0442\u0435\u043a\u0441\u0442\u0430 \u043d\u0438\u0436\u0435:",
+   "system_prompt": "\u0422\u044b \u0432\u043e\u043f\u0440\u043e\u0441\u043d\u043e-\u043e\u0442\u0432\u0435\u0442\u043d\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430. \u0412\u0441\u0435 \u043e\u0442\u0432\u0435\u0442\u044b \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0448\u044c \u043d\u0430 \u0442\u043e\u043c \u044f\u0437\u044b\u043a\u0435 \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u043c \u0437\u0430\u0434\u0430\u043d \u0432\u043e\u043f\u0440\u043e\u0441. \u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u043a\u043e\u0440\u043e\u0442\u043a\u043e \u043f\u043e \u0432\u043e\u043f\u0440\u043e\u0441\u0430\u043c."
+  },
+  "hyper_params": {
+   "temperature": 0.6,
+   "top_k": 35,
+   "top_p": 0.9,
+   "min_p": 0.1,
+   "typical_p": 1,
+   "stream": true,
+   "max_tokens": 90
+  },
+  "benchmark_sizes": 500
+ },
+ "scores": {
+  "sberquad": {
+   "rouge": 0.20149999856948853,
+   "bleu": 0.15455999970436096,
+   "meteor": 0.54695,
+   "exact_match": 0.02
+  },
+  "squadv2": {
+   "rouge": 0.1747400015592575,
+   "bleu": 0.02092999964952469,
+   "meteor": 0.1766,
+   "exact_match": 0.0
+  }
+ }
+}
