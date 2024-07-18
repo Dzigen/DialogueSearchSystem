@@ -20,14 +20,14 @@ retriever:
     densedb_kwargs: {'allow_dangerous_deserialization': True}
     model_kwargs: {'device':'cuda'}
     encode_kwargs: {'normalize_embeddings': True, 'prompt': 'query: '}
-    params: {"threshold": 0.80, "fetch_k": 50, "max_k": 10}
+    params: {"threshold": 0.80, "fetch_k": 30, "max_k": 10}
   
 summarizer:
   tech_config:
     model_path: '/nlp_service/models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa'
     n_gpu_layers: -1
     seed: 42
-    n_ctx: 1024
+    n_ctx: 0
     n_batch: 512
     n_threads: null
     use_mmap: True
@@ -38,13 +38,13 @@ summarizer:
     Попробуйте переформулировать/уточнить ваш вопрос или выполните ручной поиск по [базе документов](https://www.gost.ru/portal/gost/home/standarts/InformationSecurity)."
 
   strat_config:
-    temperature: 0.8
+    temperature: 0.6
     top_k: 40
-    top_p: 0.95
-    min_p: 0.05 
-    typical_p: 1 
-    stream: False
-    max_tokens: 100
+    top_p: 0.9
+    min_p: 0.05
+    typical_p: 1
+    stream: True
+    max_tokens: 90
 
 generator:
   model: ""

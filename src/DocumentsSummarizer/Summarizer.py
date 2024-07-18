@@ -37,6 +37,7 @@ class SummarizerModule:
 
         Возвращает: str
         """
+
         text_chunks = [doc.page_content for doc in state.base_relevant_docs]
         assist_content = '\n\n'.join(text_chunks)
         return assist_content
@@ -51,12 +52,14 @@ class SummarizerModule:
 
         Возвращает: str
         """
+
         if len(state.base_relevant_docs) > 0:
             assist_content = self.prepare_assistant_content(state)
             return self.llm.generate(assist_content, state.query)
         else:
-            return [{'choices': [{'delta': {
-                'content': self.config.tech_config.stub_answer}, 
-                'message': {'content': self.config.tech_config.stub_answer}}]}]
+            if self.config.strat_config.stream:
+                return [{'choices': [{'delta': {'content': self.config.tech_config.stub_answer}}]}]
+            else:
+                return {'choices': [{'message': {'content': self.config.tech_config.stub_answer}}]}
         
         
