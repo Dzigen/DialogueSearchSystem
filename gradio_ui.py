@@ -12,7 +12,8 @@ import pandas as pd
 
 #
 UI_TITLE = "Цифровой ассистент"
-UI_DESCRIPTION = "Ассистент может ответить на ваши вопросы по теме 'Информационной безопасности'."
+UI_DESCRIPTION = "Ассистент может ответить на ваши вопросы по теме 'Информационной безопасности'. \
+База документов, по которой осуществляется поиск, была получена на основе следующего ресурса: ['Росстандарт. Федеральное агентство по техническому регулированию и метрологии'](https://www.gost.ru/portal/gost/home/standarts/InformationSecurity)."
 UI_ARTICLE = ''
 QUESTION_EXAMPLES = [
     "Что такое алгоритм шифрования?", # doc3
@@ -73,7 +74,7 @@ demo = gr.ChatInterface(
     description=UI_DESCRIPTION,
     theme=gr.themes.Default(),
     examples=QUESTION_EXAMPLES,
-    cache_examples=True,
+    cache_examples=False,
     retry_btn=None,
     undo_btn=UNDO_BTN_NAME,
     clear_btn=CLEAR_BTN_NAME,
