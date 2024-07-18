@@ -44,7 +44,7 @@ summarizer:
     min_p: 0.05
     typical_p: 1
     stream: True
-    max_tokens: 90
+    max_tokens: 200
 
 generator:
   model: ""
