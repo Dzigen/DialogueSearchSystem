@@ -13,10 +13,12 @@ ARG APP_DIR=/nlp_service
 ENV PYTHONPATH "${PYTHONPATH}:${APP_DIR}"
 EXPOSE 9090
 ENV GRADIO_SERVER_NAME="0.0.0.0"
+RUN mkdir /nlp_service/gradio_cached_examples
 
 COPY src/ ./src
 COPY config.yaml .
 COPY gradio_ui.py .
+
 
 RUN ls -la
 RUN python3 --version
