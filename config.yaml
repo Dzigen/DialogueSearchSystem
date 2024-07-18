@@ -20,20 +20,22 @@ retriever:
     densedb_kwargs: {'allow_dangerous_deserialization': True}
     model_kwargs: {'device':'cuda'}
     encode_kwargs: {'normalize_embeddings': True, 'prompt': 'query: '}
-    params: {"threshold": 0.8,"fetch_k": 100}
+    params: {"threshold": 0.80,"fetch_k": 50, "max_k": 10}
   
 summarizer:
   tech_config:
-    model_path: '/nlp_service/models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa'
+    model_path: '/home/aisummer/nlp_models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa'
     n_gpu_layers: -1
     seed: 42
-    n_ctx: 512
+    n_ctx: 1024
     n_batch: 512
     n_threads: null
     use_mmap: True
     use_mlock: True
     assistant_prompt: "Твоя база знаний, все ответы генерируются на основе текста ниже:"
     system_prompt: "Ты вопросно-ответная система. Все ответы генерируешь на русском языке. Отвечай коротко по вопросам."
+    stub_answer: "К сожалению, в моей базе документов по информационной безопасности отсутствует релевантная информация по вашему вопросу.\ 
+    Попробуйте переформулировать/уточнить ваш вопрос или выполните ручной поиск по [базе документов](https://www.gost.ru/portal/gost/home/standarts/InformationSecurity)."
 
   strat_config:
     temperature: 0.8
@@ -41,7 +43,7 @@ summarizer:
     top_p: 0.95
     min_p: 0.05 
     typical_p: 1 
-    stream: True
+    stream: False
     max_tokens: 100
 
 generator:

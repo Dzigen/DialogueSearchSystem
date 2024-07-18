@@ -32,6 +32,6 @@ class ThresholdRetriever:
     def invoke(self, query: str):
         docs_with_scores = self.densedb.similarity_search_with_score(query, k=self.config.params['fetch_k'])
         filtered_docs_with_scores = list(filter(lambda item: item[1] > self.config.params['threshold'], docs_with_scores))
-        relevant_docs = list(map(lambda item: item[0], filtered_docs_with_scores))
+        relevant_docs = list(map(lambda item: item[0], filtered_docs_with_scores))[:self.config.params['max_k']]
 
         return relevant_docs   

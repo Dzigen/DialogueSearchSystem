@@ -51,10 +51,12 @@ class SummarizerModule:
 
         Возвращает: str
         """
-
-        assist_content = self.prepare_assistant_content(state)
-
-        return self.llm.generate(assist_content, state.query)
-
+        if len(state.base_relevant_docs) > 0:
+            assist_content = self.prepare_assistant_content(state)
+            return self.llm.generate(assist_content, state.query)
+        else:
+            return [{'choices': [{'delta': {
+                'content': self.config.tech_config.stub_answer}, 
+                'message': {'content': self.config.tech_config.stub_answer}}]}]
         
         

@@ -55,8 +55,8 @@ def question_handler(message, history):
         answer = dialogue_system.start(state)['choices'][0]['message']['content']
     state.answer = answer
 
-    doc_links = [ docs_df[docs_df['filename'] == item.metadata['doc_id']].iloc[0]['url'] for item in state.base_relevant_docs]
-    source_docs_str = f"Source documents: [{', '.join([f'[{i}]({link})' for i, link in enumerate(doc_links)])}]"
+    doc_links = list(set([docs_df[docs_df['filename'] == item.metadata['doc_id']].iloc[0]['url'] for item in state.base_relevant_docs]))
+    source_docs_str = f"Source documents: [{', '.join([f'[{i}]({link})' for i, link in enumerate(doc_links)])}]" if len(doc_links) else "" 
     system_answer = f"{state.answer}\n\n{source_docs_str}"
 
     yield system_answer

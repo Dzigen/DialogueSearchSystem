@@ -23,7 +23,7 @@ class ThresholdRetrieverConfig:
     encode_kwargs: Dict[str, object] = field(default_factory=lambda: {'normalize_embeddings': True, 'prompt': 'query: '})
     model_kwargs: Dict[str, object] = field(default_factory=lambda: {'device': 'cuda'})
     
-    params: Dict[str, object] = field(default_factory=lambda: {'fetch_k': 50, 'threshold': 0.9})
+    params: Dict[str, object] = field(default_factory=lambda: {'fetch_k': 50, 'threshold': 0.9, 'max_k': 10})
 
 # Есть 5 возможных конфигураций алгоритма поиска релевантных фрагментов в базе документов
 # 1. simmilarity + mmr + bm25
