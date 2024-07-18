@@ -12,9 +12,9 @@ from dataclasses import dataclass, field
 from langchain_core.documents.base import Document
 from ruamel.yaml import YAML
 from time import time
-from typing import List
+from typing import List, Union
 
-configs = {
+CONFIGS = {
     'selector': SelectorConfig,
     'aggregator': AggregatorConfig,
     'reducer': ReducerConfig,
@@ -36,10 +36,9 @@ class DialogueSearchConfig:
 
     @classmethod
     def load(cls, config_path: str = 'config.yaml'):
-        yaml = YAML(typ='safe')
         return cls(
             **{key: config.load(config_path)
-               for key, config in configs.items()}
+               for key, config in CONFIGS.items()}
         )
 
 def create_id(hash_len=8) -> float:

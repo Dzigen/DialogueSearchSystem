@@ -65,7 +65,7 @@ def question_handler(message, history):
 demo = gr.ChatInterface(
     question_handler,
     chatbot=gr.Chatbot(
-        height=300, 
+        height=400, 
         show_copy_button=True,
         avatar_images=[USER_AVATAR, BOT_AVATAR]),
     textbox=gr.Textbox(placeholder=QUESTION_FIELD_PLACEHOLDER, container=False, scale=7),

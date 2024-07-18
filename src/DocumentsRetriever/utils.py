@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from ruamel.yaml import YAML
-from typing import List, Dict
+from typing import List, Dict, Union
 
 # USEFUL links
 # https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/vectorstore/
@@ -10,6 +10,20 @@ from typing import List, Dict
 # https://www.kaggle.com/discussions/general/509903
 # https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/ensemble/
 # https://api.python.langchain.com/en/latest/retrievers/langchain.retrievers.ensemble.EnsembleRetriever.html
+
+
+# [threshold, fetch_ks]
+
+@dataclass
+class ThresholdRetrieverConfig:
+    model_path: str
+    densedb_path: str = None
+    densedb_kwargs: Dict[str, object] = field(default_factory=lambda: {'allow_dangerous_deserialization':True})
+
+    encode_kwargs: Dict[str, object] = field(default_factory=lambda: {'normalize_embeddings': True, 'prompt': 'query: '})
+    model_kwargs: Dict[str, object] = field(default_factory=lambda: {'device': 'cuda'})
+    
+    params: Dict[str, object] = field(default_factory=lambda: {'fetch_k': 50, 'threshold': 0.9})
 
 # Есть 5 возможных конфигураций алгоритма поиска релевантных фрагментов в базе документов
 # 1. simmilarity + mmr + bm25
@@ -29,32 +43,43 @@ from typing import List, Dict
 # bm25 - [k]
 
 @dataclass
-class RetrieverConfig:
+class BaselineRetrieverConfig: 
     model_path: str
-
-    densedb_path: str
-    sparsedb_path: str
+    densedb_path: str = None
+    sparsedb_path: str = None
 
     densedb_kwargs: Dict[str, object] = field(default_factory=lambda: {'allow_dangerous_deserialization':True})
     sparsedb_kwargs: Dict[str, object] = field(default_factory=lambda: {})
     
-    encode_kwargs: Dict[str, object] = field(default_factory=lambda: {'normalize_embeddings': False, 'prompt': 'query: '})
+    encode_kwargs: Dict[str, object] = field(default_factory=lambda: {'normalize_embeddings': True, 'prompt': 'query: '})
     model_kwargs: Dict[str, object] = field(default_factory=lambda: {'device': 'cuda'})
     
     params: Dict[str, Dict[str, object]] = field(default_factory=lambda: {
         'similarity': {'k': 3},
-        'mmr': {'lambda_mult': 0.5, 'fetch_k': 20, 'k': 3}, 
         'bm25': {'k': 3}
         })
     
-    weights: List[float] = field(default_factory=lambda: [0.3, 0.3, 0.4])
+    weights: List[float] = field(default_factory=lambda: [0.5, 0.5])
+
+@dataclass
+class RetrieverConfig:
+    mode: str  # custom | baseline
+    custom_args: Union[ThresholdRetrieverConfig, BaselineRetrieverConfig] 
 
     @classmethod
     def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
         with open(config_path, 'r', encoding='utf-8') as fd:
-            data = yaml.load(fd.read())
-        return cls(**data['retriever'])
+            data = yaml.load(fd.read())['retriever']
+
+        if data['mode'] == 'baseline':
+            args = BaselineRetrieverConfig(**data['custom_args'])
+        elif data['mode'] == 'threshold':
+            args = ThresholdRetrieverConfig(**data['custom_args'])
+        else:
+            raise ValueError
+
+        return cls(mode=data['mode'], custom_args=args)
     
 @dataclass
 class RawData:

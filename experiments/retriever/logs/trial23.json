@@ -1,0 +1,48 @@
+{
+ "info": {
+  "sberquad": {
+   "db": "v2",
+   "table": "v1"
+  },
+  "squadv2": {
+   "db": "v2",
+   "table": "v1"
+  }
+ },
+ "hyperp": {
+  "mode": "threshold",
+  "args": {
+   "model_path": "/home/aisummer/nlp_models/intfloat/multilingual-e5-small",
+   "densedb_kwargs": {
+    "allow_dangerous_deserialization": true
+   },
+   "model_kwargs": {
+    "device": "cuda"
+   },
+   "encode_kwargs": {
+    "normalize_embeddings": true,
+    "prompt": "query: "
+   },
+   "params": {
+    "threshold": 0.9,
+    "fetch_k": 100
+   },
+   "densedb_path": "../../data/squadv2/dbs/v2/densedb"
+  },
+  "benchmark_sizes": 1000
+ },
+ "scores": {
+  "sberquad": {
+   "MRR": 0.185,
+   "Recall": 0.0,
+   "Precision": 0.0,
+   "F1": 0.0
+  },
+  "squadv2": {
+   "MRR": 0.012,
+   "Recall": 0.0,
+   "Precision": 0.0,
+   "F1": 0.0
+  }
+ }
+}
