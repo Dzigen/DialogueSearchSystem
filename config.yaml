@@ -52,3 +52,4 @@ generator:
 controller:
   enable_static: False
   enable_dynamic: False
+

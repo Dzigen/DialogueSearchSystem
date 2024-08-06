@@ -6,7 +6,6 @@ class ControllerConfig:
     enable_static: bool
     enable_dynamic: bool
 
-
     @classmethod
     def load(cls, config_path: str = 'config.yaml'):
         yaml = YAML(typ='safe')
