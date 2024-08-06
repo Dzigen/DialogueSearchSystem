@@ -1,17 +1,9 @@
-from .utils import ThresholdRetrieverConfig, RawData
-from ..utils import DialogueState
-from ..logger import Logger
-
-from typing import Dict
-from langchain_community.vectorstores import FAISS
+from .utils import ThresholdRetrieverConfig
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_core.runnables import ConfigurableField
-import pickle
+import chromadb
 
 class ThresholdRetriever:
-    def __init__(self, config: ThresholdRetrieverConfig, log, data: RawData = None) -> None:
-        self.log = log
-        self.log.info("Initiating ThresholdRetriever")
+    def __init__(self, config: ThresholdRetrieverConfig) -> None:
         self.config = config
 
         self.embeddings = HuggingFaceEmbeddings(
@@ -20,18 +12,23 @@ class ThresholdRetriever:
             encode_kwargs=self.config.encode_kwargs
         )
 
-        if data is None:
-            self.densedb = FAISS.load_local(
-                self.config.densedb_path, self.embeddings, 
-                **self.config.densedb_kwargs)
-        else:
-            self.densedb = FAISS.from_texts(
-                data.texts, self.embeddings, data.metadata,
-                **self.config.densedb_kwargs)
+        self.client = chromadb.PersistentClient(path=self.config.densedb_path)
+        self.collection = self.client.get_or_create_collection(**self.config.densedb_kwargs)
         
     def invoke(self, query: str):
-        docs_with_scores = self.densedb.similarity_search_with_score(query, k=self.config.params['fetch_k'])
-        filtered_docs_with_scores = list(filter(lambda item: item[1] > self.config.params['threshold'], docs_with_scores))
-        relevant_docs = list(map(lambda item: item[0], filtered_docs_with_scores))[:self.config.params['max_k']]
+        query_embedding = self.embeddings.embed_query(query)
 
-        return relevant_docs   
+        docs_with_scores = self.collection.query(
+            query_embeddings=[query_embedding],
+            include=["documents", "metadatas", "distances"],
+            n_results=self.config.params['fetch_k'])
+        
+        filtered_docs_id = list(filter(
+            lambda i: docs_with_scores['distances'][0][i] < self.config.params['threshold'], 
+                                                    range(len(docs_with_scores['documents'][0]))))
+        
+        if self.config.params['max_k'] > 0:
+            filtered_docs_id = filtered_docs_id[:self.config.params['max_k']]
+
+        return list(map(lambda i: [docs_with_scores['distances'][0][i], docs_with_scores['documents'][0][i], 
+                                       docs_with_scores['metadatas'][0][i]], filtered_docs_id)) 

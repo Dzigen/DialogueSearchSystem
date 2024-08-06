@@ -24,8 +24,8 @@ retriever:
   
 summarizer:
   tech_config:
-    model_path: '/nlp_service/models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa'
-    n_gpu_layers: -1
+    model_path: '/home/dzigen/Desktop/nlp_models/model_llm/blobs/sha256-6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa'
+    n_gpu_layers: 0
     seed: 42
     n_ctx: 0
     n_batch: 512
